@@ -50,7 +50,7 @@ var myChart = new Chart(ctx, {
     labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     datasets: [{
       label: 'Statistics',
-      data: [46, 45, 33, 50, 43, 61, 48],
+      data: [26, 25, 23, 30, 33, 31, 28],
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -71,7 +71,7 @@ var myChart = new Chart(ctx, {
         },
         ticks: {
           beginAtZero: true,
-          stepSize: 20
+          stepSize: 10
         }
       }],
       xAxes: [{

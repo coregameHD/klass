@@ -13,10 +13,10 @@ var iconBase = 'assets/img/mapicon-numbers/number_';
 map.addMarker({
   lat: 13.7298665,
   lng: 100.7783111,
-  title: 'KMITL Center',
+  title: 'KMITL Office of the President',
   icon: generateMarker(42),
   infoWindow: {
-    content: '<h6>KMITL</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="https://www.kmitl.ac.th">Website</a></p>'
+    content: '<h6>KMITL Office of the President</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="https://www.kmitl.ac.th">Website</a></p>'
   }
 });
 map.addMarker({
@@ -25,16 +25,16 @@ map.addMarker({
   title: 'International College',
   icon: generateMarker(79),
   infoWindow: {
-    content: '<h6>International College</h6><p>KMITL</p><p><a target="_blank" href="https://procyon.co.id/">Website</a></p>'
+    content: '<h6>International College</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="http://sigmaid.net/">Website</a></p>'
   }
 });
 map.addMarker({
   lat: 13.729523,
   lng: 100.778866,
-  title: 'KMITL Central Library',
+  title: 'Faculty of Science',
   icon: generateMarker(172),
   infoWindow: {
-    content: '<h6>Sigma ID</h6><p>Jl.Setapak No.5, Citayam, Tajur Halang, Bogor, Jawa Barat 16320</p><p><a target="_blank" href="http://sigmaid.net/">Website</a></p>'
+    content: '<h6>Faculty of Science</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="http://sigmaid.net/">Website</a></p>'
   }
 });
 
