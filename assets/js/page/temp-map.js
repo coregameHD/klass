@@ -1,5 +1,17 @@
 "use strict";
 
+// TEST: get data from the server
+$.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
+  console.log(data);
+
+  var id = data[0].id;
+  var name = data[0].name;
+  var pm25 = data[0].pm25level;
+  var temp = data[0].temp;
+  console.log("Test");
+  console.log(data[0].id);
+});
+
 // initialize map
 var map = new GMaps({
   div: '#map',
@@ -8,48 +20,44 @@ var map = new GMaps({
   zoom: 17
 });
 
-var iconBase = 'assets/img/mapicon-numbers/number_';
-// Added markers to the map
-map.addMarker({
+// initialize markers
+var marker1 = {
   lat: 13.7298665,
   lng: 100.7783111,
   title: 'KMITL Office of the President',
-  icon: generateMarker(42),
-  infoWindow: {
-    content: '<h6>KMITL Office of the President</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="https://www.kmitl.ac.th">Website</a></p>'
-  }
-});
-map.addMarker({
+  icon: generateMarker(42)
+};
+
+var marker2 = {
   lat: 13.7300547,
   lng: 100.7754368,
   title: 'International College',
-  icon: generateMarker(79),
-  infoWindow: {
-    content: '<h6>International College</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="http://sigmaid.net/">Website</a></p>'
-  }
-});
-map.addMarker({
+  icon: generateMarker(79)
+};
+
+var marker3 = {
   lat: 13.729523,
   lng: 100.778866,
   title: 'Faculty of Science',
-  icon: generateMarker(172),
-  infoWindow: {
-    content: '<h6>Faculty of Science</h6><p>King Mongkuts Institute of Technology Ladkrabang,<br>Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520</p><p><a target="_blank" href="http://sigmaid.net/">Website</a></p>'
-  }
-});
+  icon: generateMarker(172)
+};
 
-$.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
-    console.log(data);
+// Display popup
+displayPopup(marker1, "AQI Index: 42", "Office of the Register" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
+displayPopup(marker2, "AQI Index: 79", "International College" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
+displayPopup(marker3, "AQI Index: 172", "Faculty of Science" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
 
-    var id = data[0].id;
-    var name = data[0].name;
-    var pm25 = data[0].pm25level;
-    var temp = data[0].temp;
-    console.log("Test");
-    console.log(data[0].id);
-  });
+// Added markers to the map
+map.addMarker(marker1);
+map.addMarker(marker2);
+map.addMarker(marker3);
 
 
+// Helper Function: a function to generate colored marker based on the AQI number
+// 000-050 = Green
+// 051-100 = Yellow
+// 101-150 = Orange
+// 151++++ = Red
 function generateMarker(aqi) {
   var canvas = document.createElement('canvas');
   canvas.height = 64;
@@ -85,4 +93,12 @@ function generateMarker(aqi) {
 
   var marker = canvas.toDataURL("image/png;base64");
   return marker;
+}
+
+// Helper Function: Display pop-up when user clicked on the marker
+function displayPopup(marker, title, content){
+  google.maps.event.addListener(marker, "click", function (e) {
+      swal(title, content);
+    }
+  );
 }
