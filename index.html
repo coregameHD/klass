@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.2/dist/browser/signalr.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -29,6 +30,23 @@
   c=(c  instanceof  Array)?c:[c];s['n']=n=n||0;L=d.createElement(t),e=d.getElementsByTagName(t)[0];  
   L.async=1;L.src='//feed.aqicn.org/feed/'+(c[n].city)+'/'+(c[n].lang||'')+'/feed.v1.js?n='+n+k;  
   e.parentNode.insertBefore(L,e);  };  })(  window,document,'script','_aqiFeed'  );    
+
+  function nodeUpdated(message) {
+    alert(message);
+  }
+
+  // Azure SignalR
+  const connection = new signalR.HubConnectionBuilder()
+      .withUrl(`http://localhost:7071/api`)
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+
+    connection.on('nodeUpdated', nodeUpdated);
+    connection.onclose(() => console.log('disconnected'));
+
+    console.log('connecting...');
+    connection.start()
+      .catch(console.error);
 </script>
 <!-- /END GA --></head>
 
