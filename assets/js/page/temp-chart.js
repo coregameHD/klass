@@ -4,12 +4,12 @@ var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    labels: arrayName,
     datasets: [{
-      label: 'Statistics',
-      data: [46, 45, 33, 50, 43, 61, 48],
+      label: 'AQI Index',
+      data: arrayPM25,
       borderWidth: 2,
-      backgroundColor: '#6777ef',
+      backgroundColor: '',
       borderColor: '#6777ef',
       borderWidth: 2.5,
       pointBackgroundColor: '#ffffff',
@@ -33,7 +33,7 @@ var myChart = new Chart(ctx, {
       }],
       xAxes: [{
         ticks: {
-          display: false
+          display: true
         },
         gridLines: {
           display: false
@@ -44,13 +44,23 @@ var myChart = new Chart(ctx, {
 });
 
 var ctx = document.getElementById("myChart2").getContext('2d');
-var myChart = new Chart(ctx, {
+var myChart2 = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    labels: arrayName,
     datasets: [{
-      label: 'Statistics',
-      data: [26, 25, 23, 30, 33, 31, 28],
+      label: 'Temperature',
+      data: arrayTemperature,
+      borderWidth: 2,
+      backgroundColor: '#e83e8c',
+      borderColor: '#e83e8c',
+      borderWidth: 2.5,
+      pointBackgroundColor: '#ffffff',
+      pointRadius: 4
+    }, 
+    {
+      label: 'Humidity',
+      data: arrayHumidity,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -71,12 +81,12 @@ var myChart = new Chart(ctx, {
         },
         ticks: {
           beginAtZero: true,
-          stepSize: 10
+          stepSize: 25
         }
       }],
       xAxes: [{
         ticks: {
-          display: false
+          display: true
         },
         gridLines: {
           display: false

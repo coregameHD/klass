@@ -1,17 +1,5 @@
 "use strict";
 
-// TEST: get data from the server
-$.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
-  console.log(data);
-
-  var id = data[0].id;
-  var name = data[0].name;
-  var pm25 = data[0].pm25level;
-  var temp = data[0].temp;
-  console.log("Test");
-  console.log(data[0].id);
-});
-
 // initialize map
 var map = new GMaps({
   div: '#map',
