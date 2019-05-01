@@ -37,7 +37,7 @@
 
   // Azure SignalR
   const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`http://localhost:7071/api`)
+      .withUrl(`https://realtimebroadcaster.azurewebsites.net/api`)
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
