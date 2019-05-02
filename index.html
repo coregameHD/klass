@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <meta name="theme-color" content="#6777ef">
   <title>LAPSS Homepage</title>
 
   <!-- General CSS Files -->
@@ -23,13 +24,6 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-94034622-3');
-</script>
-
-<script  type="text/javascript"  charset="utf-8">  
-  (function(w,d,t,f){  w[f]=w[f]||function(c,k,n){s=w[f],k=s['k']=(s['k']||(k?('&k='+k):''));s['c']=  
-  c=(c  instanceof  Array)?c:[c];s['n']=n=n||0;L=d.createElement(t),e=d.getElementsByTagName(t)[0];  
-  L.async=1;L.src='//feed.aqicn.org/feed/'+(c[n].city)+'/'+(c[n].lang||'')+'/feed.v1.js?n='+n+k;  
-  e.parentNode.insertBefore(L,e);  };  })(  window,document,'script','_aqiFeed'  );    
 
   function nodeUpdated(data) {
     if (("Notification" in window) && (Notification.permission === "granted")) {
@@ -40,7 +34,7 @@
   // Notification
   if ("Notification" in window) {
     Notification.requestPermission().then(function(permission) {
-      Console.log("Permission: " + permission);
+      console.log("Permission: " + permission);
     });
   }
 
@@ -65,24 +59,24 @@
       <div class="navbar-bg"></div>
       <!-- Main Navbar -->
       <nav class="navbar navbar-expand-lg main-navbar">
-        <a class="navbar-brand" href="#">LAPSS</a>
+        <a class="navbar-brand" href="index.html">K-LASS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+              <a class="nav-link" href="features.html">Features</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="about.html">About</a>
             </li>
           </ul>
           <span class="navbar-text">
-            Large Area Particulate Sensing System
+            KMITL Large Area Sensing System
           </span>
         </div>
       </nav>
@@ -131,11 +125,16 @@
               An <code>air quality index (AQI)</code> is used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become.
             </p>
             
-            <div class="row sortable-card">
+            <div class="row">
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-secondary">
                   <div class="card-header">
                     <h4>AQI Index</h4>
+                    <div class="card-header-action">
+                      <a id="myButton1" class="btn btn-light">
+                        Refresh
+                      </a>
+                    </div>
                   </div>
                   <div class="card-body">
                     <canvas id="myChart"></canvas>
@@ -146,7 +145,12 @@
               <div class="col-12 col-md-6 col-lg-6">
                 <div class="card card-secondary">
                   <div class="card-header">
-                    <h4>Temperature</h4>
+                    <h4>Temperature & Humidity</h4>
+                    <div class="card-header-action">
+                      <a id="myButton2" class="btn btn-light">
+                        Refresh
+                      </a>
+                    </div>
                   </div>
                   <div class="card-body">
                     <canvas id="myChart2"></canvas>
@@ -160,7 +164,7 @@
                 <div class="col-12 col-md-6 col-lg-3">
                   <div class="card card-primary">
                     <div class="card-header">
-                      <h4>Card Header</h4>
+                      <h4>Hi</h4>
                     </div>
                     <div class="card-body text-center">
                       <div class="mb-2">Info Message</div>
@@ -236,10 +240,11 @@
   <script src="assets/modules/sweetalert/sweetalert.min.js"></script>
 
   <!-- Page Specific JS File -->
+  <script src="assets/js/page/temp-api.js"></script>
   <script src="assets/js/page/temp-map.js"></script>
   <script src="assets/js/page/temp-chart.js"></script>
   <script src="assets/js/page/temp-getdate.js"></script>
-
+  
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
   <script src="assets/js/custom.js"></script>
