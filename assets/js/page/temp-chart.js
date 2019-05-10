@@ -1,20 +1,20 @@
 "use strict";
 
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'line',
+var ctx = document.getElementById("myChart1").getContext('2d');
+var myChart1 = new Chart(ctx, {
+  type: 'bar',
   data: {
     labels: arrayName,
     datasets: [{
       label: 'AQI Index',
       data: arrayPM25,
       borderWidth: 2,
-      backgroundColor: '',
+      backgroundColor: '#6777ef',
       borderColor: '#6777ef',
       borderWidth: 2.5,
       pointBackgroundColor: '#ffffff',
       pointRadius: 4
-    }]
+    },]
   },
   options: {
     legend: {
@@ -81,7 +81,7 @@ var myChart2 = new Chart(ctx, {
         },
         ticks: {
           beginAtZero: true,
-          stepSize: 25
+          stepSize: 10
         }
       }],
       xAxes: [{

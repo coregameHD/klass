@@ -52,6 +52,7 @@ function generateMarker(aqi) {
   canvas.width = 64;
 
   var ctx = canvas.getContext("2d");
+  //ctx.scale(2, 2);
 
   if(aqi <= 50) {
       ctx.fillStyle = "green";

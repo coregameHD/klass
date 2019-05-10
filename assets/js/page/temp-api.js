@@ -27,9 +27,9 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
   console.log(arrayTemperature);
   console.log(arrayHumidity);
   console.log(data[0].id);
-  myChart.update();
+  myChart1.update();
   myChart2.update();
 });
 
-document.getElementById("myButton1").onclick = function () { myChart.update(); };
+document.getElementById("myButton1").onclick = function () { myChart1.update(); };
 document.getElementById("myButton2").onclick = function () { myChart2.update(); };
