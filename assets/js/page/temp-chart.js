@@ -1,13 +1,13 @@
 "use strict";
 
-var ctx = document.getElementById("myChart1").getContext('2d');
-var myChart1 = new Chart(ctx, {
+var ctx = document.getElementById("chart_AQI").getContext('2d');
+var chart_AQI = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: arrayName,
+    labels: array_name,
     datasets: [{
       label: 'AQI Index',
-      data: arrayPM25,
+      data: array_pm25Level,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -43,14 +43,14 @@ var myChart1 = new Chart(ctx, {
   }
 });
 
-var ctx = document.getElementById("myChart2").getContext('2d');
-var myChart2 = new Chart(ctx, {
+var ctx = document.getElementById("chart_TempAndHumid").getContext('2d');
+var chart_TempAndHumid = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: arrayName,
+    labels: array_name,
     datasets: [{
       label: 'Temperature',
-      data: arrayTemperature,
+      data: array_temp,
       borderWidth: 2,
       backgroundColor: '#e83e8c',
       borderColor: '#e83e8c',
@@ -60,7 +60,7 @@ var myChart2 = new Chart(ctx, {
     }, 
     {
       label: 'Humidity',
-      data: arrayHumidity,
+      data: array_humidity,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -95,3 +95,23 @@ var myChart2 = new Chart(ctx, {
     },
   }
 });
+
+document.getElementById("myButton1").onclick = function () { 
+  chart_AQI.update(); 
+  iziToast.success({
+    title: 'Updated',
+    message: 'AQI Index chart updated',
+    position: 'topRight',
+    timeout: 2000,
+  });
+};
+
+document.getElementById("myButton2").onclick = function () { 
+  chart_TempAndHumid.update(); 
+  iziToast.success({
+    title: 'Updated',
+    message: 'Temperature & Humidity chart updated',
+    position: 'topRight',
+    timeout: 2000,
+  });
+};
