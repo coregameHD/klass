@@ -85,10 +85,10 @@
       <nav class="navbar navbar-secondary navbar-expand-lg">
         <div class="container">
           <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
               <a href="index.html" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a href="details.html" class="nav-link"><i class="fas fa-table"></i><span>Details</span></a>
             </li>
           </ul>
@@ -99,65 +99,34 @@
       <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Home</h1>
+                <h1>Details</h1>
                 <div class="section-header-breadcrumb">
                   <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                   <div class="breadcrumb-item"><a href="#">Layout</a></div>
-                  <div class="breadcrumb-item">Home</div>
+                  <div class="breadcrumb-item">Details</div>
                 </div>
               </div>
           <div class="section-body">
             
 
-            <div class="card card-primary">
-              <div class="card-header">
-                <h4>Map View</h4>
-              </div>
-              <div class="card-body">
-                <div id="map" data-height="600"></div>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h4>Sensors Information</h4>
             </div>
-              <div class="card-footer bg-whitesmoke">
-                <b>Last Updated:</b> <p id="date"></p>
-              </div>
+            <div class="card-body">
+                <p>Perform GET request to <code>/api/sensors</code></p>
+                <div id="table_sensors"></div>
             </div>
-          </div>
-          <h2 class="section-title">What is AQI Index?</h2>
-            <p class="section-lead">
-              An <code>air quality index (AQI)</code> is used by government agencies to communicate to the public how polluted the air currently is or how polluted it is forecast to become.
-            </p>
-            
-            <div class="row">
-              <div class="col-12 col-md-6 col-lg-6">
-                <div class="card card-secondary">
-                  <div class="card-header">
-                    <h4>AQI Index</h4>
-                    <div class="card-header-action">
-                      <a id="myButton1" class="btn btn-light">
-                        Refresh
-                      </a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="chart_AQI"></canvas>
-                    <div id='my-container'></div> 
-                  </div>
+        </div>
+
+        <div class="card card-primary">
+                <div class="card-header">
+                    <h4>Node Information</h4>
                 </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-6">
-                <div class="card card-secondary">
-                  <div class="card-header">
-                    <h4>Temperature & Humidity</h4>
-                    <div class="card-header-action">
-                      <a id="myButton2" class="btn btn-light">
-                        Refresh
-                      </a>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="chart_TempAndHumid"></canvas>
-                  </div>
+                <div class="card-body">
+                    <p>Perform GET request to <code>/api/nodeinfos</code></p>
+                    <div id="table_nodeinfos"></div>
                 </div>
-              </div>
             </div>
 
         </section>
@@ -193,11 +162,8 @@
   <script src="assets/modules/izitoast/js/iziToast.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="assets/js/page/temp-api.js"></script>
-  <script src="assets/js/page/temp-api2-map.js"></script>
+  <script src="assets/js/page/temp-table.js"></script>
   <script src="assets/js/page/temp-map.js"></script>
-  <script src="assets/js/page/temp-chart.js"></script>
-  <script src="assets/js/page/temp-getdate.js"></script>
   
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>

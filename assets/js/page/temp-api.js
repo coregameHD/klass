@@ -27,7 +27,11 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
   console.log(array_temp);
   console.log(array_humidity);
   console.log(data[0].id);
-  
+
   chart_AQI.update();
   chart_TempAndHumid.update();
 });
+
+function get_pm25Level(index){
+  return array_pm25Level[index];
+}

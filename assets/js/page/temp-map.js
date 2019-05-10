@@ -8,12 +8,14 @@ var map = new GMaps({
   zoom: 17
 });
 
+console.log(array_mapname);
+
 // initialize markers
 var marker1 = {
   lat: 13.7298665,
-  lng: 100.7783111,
-  title: 'KMITL Office of the President',
-  icon: generateMarker(42)
+  lng: 100.7783122,
+  title: "Test",
+  icon: generateMarker(42),
 };
 
 var marker2 = {
@@ -39,6 +41,8 @@ displayPopup(marker3, "AQI Index: 172", "Faculty of Science" + "\n\n" + "King Mo
 map.addMarker(marker1);
 map.addMarker(marker2);
 map.addMarker(marker3);
+//console.log(array_marker[0]);
+//map.addMarker(array_marker[0]);
 
 
 // Helper Function: a function to generate colored marker based on the AQI number
@@ -52,7 +56,6 @@ function generateMarker(aqi) {
   canvas.width = 64;
 
   var ctx = canvas.getContext("2d");
-  //ctx.scale(2, 2);
 
   if(aqi <= 50) {
       ctx.fillStyle = "green";
