@@ -8,8 +8,6 @@ var map = new GMaps({
   zoom: 17
 });
 
-console.log(array_mapname);
-
 // initialize markers
 var marker1 = {
   lat: 13.7298665,
