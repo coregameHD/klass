@@ -23,10 +23,3 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
   chart_AQI.update();
   chart_TempAndHumid.update();
 });
-
-function get_pm25Level(index){
-  temp = [];
-  
-  console.log(temp);
-  return temp[index];
-}

@@ -1,53 +1,6 @@
 "use strict";
 
-// initialize map
-var map = new GMaps({
-  div: '#map',
-  lat: 13.7298665,
-  lng: 100.7783111,
-  zoom: 17
-});
-
-// initialize markers
-var marker1 = {
-  lat: 13.7298665,
-  lng: 100.7783122,
-  title: "Test",
-  icon: generateMarker(42),
-};
-
-var marker2 = {
-  lat: 13.7300547,
-  lng: 100.7754368,
-  title: 'International College',
-  icon: generateMarker(79)
-};
-
-var marker3 = {
-  lat: 13.729523,
-  lng: 100.778866,
-  title: 'Faculty of Science',
-  icon: generateMarker(172)
-};
-
-// Display popup
-displayPopup(marker1, "AQI Index: 42", "Office of the Register" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
-displayPopup(marker2, "AQI Index: 79", "International College" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
-displayPopup(marker3, "AQI Index: 172", "Faculty of Science" + "\n\n" + "King Mongkuts Institute of Technology Ladkrabang Chalongkrung Rd. Ladkrabang, Bangkok Thailand 10520");
-
-// Added markers to the map
-map.addMarker(marker1);
-map.addMarker(marker2);
-map.addMarker(marker3);
-//console.log(array_marker[0]);
-//map.addMarker(array_marker[0]);
-
-
-// Helper Function: a function to generate colored marker based on the AQI number
-// 000-050 = Green
-// 051-100 = Yellow
-// 101-150 = Orange
-// 151++++ = Red
+// Helper Function: Generate marker with a number
 function generateMarker(aqi) {
   var canvas = document.createElement('canvas');
   canvas.height = 64;

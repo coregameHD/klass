@@ -5,7 +5,7 @@ var array_maplongitude = [];
 
 var array_marker = [];
 var map2 = new GMaps({
-    div: '#map2',
+    div: '#AQI_map',
     lat: 13.7298665,
     lng: 100.7783111,
     zoom: 17
@@ -43,7 +43,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         displayDetails += "Humidity: " + array_humidity[i];
         displayPopup(array_marker[i], array_mapname[i], displayDetails);
 
-        // Add marker to the map
+        // Add marker to the
         map2.addMarker(array_marker[i]);
     }
 });

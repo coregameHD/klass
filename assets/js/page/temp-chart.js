@@ -1,5 +1,6 @@
 "use strict";
 
+// AQI Index Chart
 var ctx = document.getElementById("chart_AQI").getContext('2d');
 var chart_AQI = new Chart(ctx, {
   type: 'bar',
@@ -43,6 +44,7 @@ var chart_AQI = new Chart(ctx, {
   }
 });
 
+// Temperature & Humidity Chart
 var ctx = document.getElementById("chart_TempAndHumid").getContext('2d');
 var chart_TempAndHumid = new Chart(ctx, {
   type: 'bar',
@@ -96,6 +98,7 @@ var chart_TempAndHumid = new Chart(ctx, {
   }
 });
 
+// Refresh Button
 document.getElementById("myButton1").onclick = function () { 
   chart_AQI.update(); 
   iziToast.success({
