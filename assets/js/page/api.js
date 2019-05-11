@@ -1,10 +1,22 @@
+// Sensor Information
+var array_id = [];
+var array_name = [];
+var array_pm25Level = [];
+var array_pm10Level = [];
+var array_pm1Level = [];
+var array_temp = [];
+var array_humidity = [];
+var array_recordedOn = [];
+
+// Node Information
 var array_mapid = [];
 var array_mapname = [];
 var array_maplatitude = [];
 var array_maplongitude = [];
 
+// Init Map
 var array_marker = [];
-var map2 = new GMaps({
+var map = new GMaps({
     div: '#AQI_map',
     lat: 13.7298665,
     lng: 100.7783111,
@@ -14,10 +26,13 @@ var map2 = new GMaps({
 // Get data from server and store in 'array_marker'
 $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function(data) {
     for (var i = 0; i < data.length; i++){
+        // Push data into the array
         array_mapid.push(data[i].id);
         array_mapname.push(data[i].name);
         array_maplatitude.push(data[i].latitude);
         array_maplongitude.push(data[i].longitude);
+
+        // Create marker and push into the array
         var temp = {
             lat: data[i].latitude,
             lng: data[i].longitude,
@@ -31,7 +46,17 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function(data)
 // Display Icon (Marker) on the map
 $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
     for (var i = 0; i < data.length; i++){
-        // Get PM2.5 data and generate marker icon
+        // Push data into the array
+        array_id.push(data[i].id);
+        array_name.push(data[i].name);
+        array_pm25Level.push(data[i].pm25Level);
+        array_pm10Level.push(data[i].pm10Level);
+        array_pm1Level.push(data[i].pm1Level);
+        array_temp.push(data[i].temp);
+        array_humidity.push(data[i].humidity);
+        array_recordedOn.push(data[i].recordedOn);
+
+        // Generate marker icon
         array_marker[i].icon = generateMarker(array_pm25Level[i]);
         
         // Display data as a pop-up if user clicked the marker
@@ -44,6 +69,10 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         displayPopup(array_marker[i], array_mapname[i], displayDetails);
 
         // Add marker to the
-        map2.addMarker(array_marker[i]);
+        map.addMarker(array_marker[i]);
+
+        // Update chart
+        chart_AQI.update();
+        chart_TempAndHumid.update();
     }
 });
