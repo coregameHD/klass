@@ -84,7 +84,7 @@
           <div class="section-body">
 
 
-            <div class="card card-primary">
+            <div class="card card-success">
               <div class="card-header">
                 <h4>Sensors Information</h4>
                 <div class="card-header-action">
@@ -94,12 +94,43 @@
                 </div>
               </div>
               <div class="card-body">
-                <p>Perform GET request to <code>/api/sensors</code></p>
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/sensors</code></p>
                 <div id="table_sensors"></div>
               </div>
             </div>
 
-            <div class="card card-primary">
+            <div class="card card-success">
+              <div class="card-header">
+                <h4>Sensors Information History</h4>
+                <div class="card-header-action">
+                  <a class="btn btn-light" href="https://lapsscentral.azurewebsites.net/api/sensors/history"
+                    target="_blank">
+                    Link
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/sensors/history</code></p>
+                <p>Use <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> to specified the following
+                  parameters (all optional):</p>
+                <p>Type: Datetime <a href="https://en.wikipedia.org/wiki/ISO_8601">(ISO-8601 standard)</a></p>
+                <ui>
+                  <li>from: only query for the sensor information after this time</li>
+                  <li>to: only query for the sensor information before this time</li>
+                </ui>
+                <p></p>
+                <p>Type: Integer</p>
+                <ui>
+                  <li>limit: Specify number of sensor information per page [Default: 50]</li>
+                  <li>page: Specify page [Default: 0]</li>
+                </ui>
+                <p></p>
+                <div id="table_sensors_history"></div>
+                <p>(Limit = 10)</p>
+              </div>
+            </div>
+
+            <div class="card card-success">
               <div class="card-header">
                 <h4>Node Information</h4>
                 <div class="card-header-action">
@@ -109,8 +140,17 @@
                 </div>
               </div>
               <div class="card-body">
-                <p>Perform GET request to <code>/api/nodeinfos</code></p>
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/nodeinfos</code></p>
                 <div id="table_nodeinfos"></div>
+              </div>
+            </div>
+
+            <div class="card card-danger">
+              <div class="card-header">
+                <h4>Sending Sensor Information</h4>
+              </div>
+              <div class="card-body">
+                <p>Perform <span class="badge badge-danger">POST</span> request to <code>/api/sensors</code></p>
               </div>
             </div>
 
