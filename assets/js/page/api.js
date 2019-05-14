@@ -14,6 +14,10 @@ var array_mapname = [];
 var array_maplatitude = [];
 var array_maplongitude = [];
 
+//Node history
+var nodeHistory
+var tempGraphHistory = []
+
 // Init Map
 var array_marker = [];
 var map = new GMaps({
@@ -76,3 +80,33 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         chart_TempAndHumid.update();
     }
 });
+
+getNodeLatestHistory(8)
+
+function getNodeLatestHistory(hours){
+    var currentTime = new Date();
+    currentTime.setHours(currentTime.getHours() - hours)
+    dateString = currentTime.toISOString()
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history/?limit=500&from="+dateString, function(data) {
+        nodeHistory = data
+        console.log(nodeHistory)
+        // tempGraphHistory = Object.values(getTempHistory())
+        getTempHistory()
+        console.log(tempGraphHistory)
+        chart_temp.update()
+    })
+    
+  
+
+}
+
+function getTempHistory(){
+    tempGraphHistory.length = 0
+    for(var i = 0; i < nodeHistory.length; i++){
+        tempGraphHistory.push({
+            x: moment(nodeHistory[i].recordedOn).format(),
+            y:nodeHistory[i].temp
+        })
+    }
+    // return data
+}

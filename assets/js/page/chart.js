@@ -98,6 +98,50 @@ var chart_TempAndHumid = new Chart(ctx, {
   }
 });
 
+var chart_temp_element = document.getElementById("chart_Temp").getContext('2d');
+var chart_temp = new Chart(chart_temp_element, {
+  type: 'line',
+  data: {
+    datasets: [{
+      backgroundColor: '#ffffff',
+      borderColor: '#6777ef',
+      fill: false,
+      data: tempGraphHistory
+  
+    }]
+  },
+  options: {
+    legend: {
+      display: false
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        type: 'time',
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Date'
+        },
+        ticks: {
+          major: {
+            fontStyle: 'bold',
+            fontColor: '#FF0000'
+          }
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Celsius'
+        }
+      }]
+    }
+  }
+}
+)
+
 // Refresh Button
 document.getElementById("myButton1").onclick = function () { 
   chart_AQI.update(); 
@@ -118,3 +162,27 @@ document.getElementById("myButton2").onclick = function () {
     timeout: 2000,
   });
 };
+
+//Temp range select button
+document.getElementById("btn_temp_time_range-2").onclick = function () { 
+  getNodeLatestHistory(2)
+};
+document.getElementById("btn_temp_time_range-8").onclick = function () { 
+  getNodeLatestHistory(8)
+};
+document.getElementById("btn_temp_time_range-24").onclick = function () { 
+  getNodeLatestHistory(24)
+};
+document.getElementById("btn_temp_time_range-168").onclick = function () { 
+  getNodeLatestHistory(168)
+};
+
+
+
+function newDate(days) {
+  return moment().add(days, 'd').toDate();
+}
+
+function newDateString(days) {
+  return moment().add(days, 'd').format();
+}
