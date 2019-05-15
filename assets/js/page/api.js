@@ -58,7 +58,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         array_pm1Level.push(data[i].pm1Level);
         array_temp.push(data[i].temp);
         array_humidity.push(data[i].humidity);
-        array_recordedOn.push(data[i].recordedOn);
+        array_recordedOn.push(new Date(data[i].recordedOn).toLocaleString());
 
         // Generate marker icon
         array_marker[i].icon = generateMarker(array_pm25Level[i]);

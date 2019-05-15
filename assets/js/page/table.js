@@ -4,7 +4,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) 
   table += '<table class="table table-striped table-md">'
   table += "<tr><th>#</th><th>Name</th><th>PM 2.5</th><th>PM 10</th><th>PM 1</th><th>Temperature</th><th>Humidity</th><th>Record On</th></tr>";
   for (var i = 0; i < data.length; i++) {
-    table += "<tr><td>" + (i+1) + "</td><td>" + data[i].name + "</td><td>" + data[i].pm25Level + "</td><td>" + data[i].pm10Level + "</td><td>" + data[i].pm1Level + "</td><td>" + data[i].temp + "</td><td>" + data[i].humidity + "</td><td>" + data[i].recordedOn + "</td></tr>";
+    table += "<tr><td>" + (i+1) + "</td><td>" + data[i].name + "</td><td>" + data[i].pm25Level + "</td><td>" + data[i].pm10Level + "</td><td>" + data[i].pm1Level + "</td><td>" + data[i].temp + "</td><td>" + data[i].humidity + "</td><td>" + new Date(data[i].recordedOn).toLocaleString() + "</td></tr>";
   }
   table += "</table>";
   table += "</div>";
@@ -19,7 +19,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history?limit=10",
   table += '<table class="table table-striped table-md">'
   table += "<tr><th>#</th><th>Name</th><th>PM 2.5</th><th>PM 10</th><th>PM 1</th><th>Temperature</th><th>Humidity</th><th>Record On</th></tr>";
   for (var i = 0; i < data.length; i++) {
-    table += "<tr><td>" + (i+1) + "</td><td>" + data[i].name + "</td><td>" + data[i].pm25Level + "</td><td>" + data[i].pm10Level + "</td><td>" + data[i].pm1Level + "</td><td>" + data[i].temp + "</td><td>" + data[i].humidity + "</td><td>" + data[i].recordedOn + "</td></tr>";
+    table += "<tr><td>" + (i+1) + "</td><td>" + data[i].name + "</td><td>" + data[i].pm25Level + "</td><td>" + data[i].pm10Level + "</td><td>" + data[i].pm1Level + "</td><td>" + data[i].temp + "</td><td>" + data[i].humidity + "</td><td>" + new Date(data[i].recordedOn).toLocaleString() + "</td></tr>";
   }
   table += "</table>";
   table += "</div>";
