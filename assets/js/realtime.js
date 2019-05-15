@@ -1,9 +1,16 @@
 function nodeUpdated(data) {
+  parsedData = JSON.parse(data);
   if (("Notification" in window) && (Notification.permission === "granted")) {
-    parsedData = JSON.parse(data);
     var notification = new Notification("New data from " + parsedData.name);
   }
-  
+  chart_AQI.update();
+  chart_TempAndHumid.update(); 
+  iziToast.success({
+    title: 'New data from ' + parsedData.name,
+    message: 'AQI Index, Temperature & Humidity chart updated',
+    position: 'topRight',
+    timeout: 2000,
+  });
 
 }
 
