@@ -81,101 +81,99 @@
           <div class="section-header">
             <h1>Home</h1>
           </div>
+        
           <div class="section-body">
             <div class="card card-primary">
               <div class="card-header">
                 <h4>Map View</h4>
               </div>
-              <div class="card-body">
+              <div class = "card-body">
+                <p>Click on node map marker to view detail</p>
                 <div id="AQI_map" data-height="600"></div>
               </div>
             </div>
           </div>
-          <h2 class="section-title">What is AQI Index?</h2>
-          <p class="section-lead">
-            An <code>air quality index (AQI)</code> is used by government agencies to communicate to the public how
-            polluted the air currently is or how polluted it is forecast to become.
-          </p>
+
+          <div class="card " id="nodeInfo">
+              <div class="card-header">
+                <h4>Node 1   <span class="badge badge-success">3 min ago</span>
+                </h4>
+                <div class="card-header-action dropdown">
+                  <a data-toggle="dropdown" href="" class="btn btn-danger dropdown-toggle">24 Hours</a>
+                  <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                    <li class="dropdown-title">Select Period</li>
+                    <li><a  onclick="getNodeLatestHistory(2)" data-value = "2" class="dropdown-item">2 Hours</a></li>
+                    <li><a   onclick="getNodeLatestHistory(8)"data-value = "8" class="dropdown-item">8 Hours</a></li>
+                    <li><a  onclick="getNodeLatestHistory(24)"  data-value = "24" class="dropdown-item">24 Hours</a></li>
+                    <li><a onclick="getNodeLatestHistory(168)" data-value = "168" class="dropdown-item">1 Week</a></li>
+                  </ul>
+                </div>
+              </div>
+             
+            </div>
+        
 
           <div class="row">
             <div class="col-12 col-md-6 col-lg-6">
               <div class="card card-primary">
                 <div class="card-header">
-                  <h4>AQI Index</h4>
-                  <div class="card-header-action">
-                    <a id="myButton1" class="btn btn-light">
-                      Refresh
-                    </a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <canvas id="chart_AQI"></canvas>
-                  <div id='my-container'></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-              <div class="card card-primary">
-                <div class="card-header">
-                  <h4>Temperature & Humidity</h4>
-                  <div class="card-header-action">
-                    <a id="myButton2" class="btn btn-light">
-                      Refresh
-                    </a>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <canvas id="chart_TempAndHumid"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-6">
-              <div class="card card-primary">
-                <div class="card-header">
                   <h4>Temperature</h4>
-                  <div class="card-header-action">
-                    <a id="btn_temp_time_range-2" class="btn btn-light">
-                      2 Hr
-                    </a>
-                    <a id="btn_temp_time_range-8" class="btn btn-light">
-                      8 Hr
-                    </a>
-                    <a id="btn_temp_time_range-24" class="btn btn-light">
-                      24 Hr
-                    </a>
-                    <a id="btn_temp_time_range-168" class="btn btn-light">
-                        1 Wk
-                      </a>
-                  </div>
+                  
                 </div>
                 <div class="card-body">
                   <canvas id="chart_Temp"></canvas>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="card card-primary">
-              <div class="card-header">
-                <h4>History</h4>
-              </div>
-              <div class="card-body">
-                <div id="table_sensors_history"></div>
+
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4>Humidity</h4>
+                
+                </div>
+                <div class="card-body">
+                  <canvas id="chart_TempAndHumid"></canvas>
+                </div>
               </div>
             </div>
+          </div>
 
-        </section>
       </div>
-      <footer class="main-footer">
-        <div class="footer-left">
-          Copyright &copy; 2019 <div class="bullet"></div> Built with <span style="color:red;">♥</span> by <a
-            href="https://github.com/coregameHD">LMPD Software</a>
-        </div>
-        <div class="footer-right">
 
+      <div class="card card-primary">
+        <div class="card-header">
+          <h4>PM2.5 Level</h4>
         </div>
-      </footer>
+        <div class="card-body">
+          <canvas id="chart_AQI"></canvas>
+          <div id='my-container'></div>
+        </div>
+      </div>
+
+
+      <div class="card card-primary">
+        <div class="card-header">
+          <h4>History</h4>
+        </div>
+        <div class="card-body">
+          <div id="table_sensors_history"></div>
+        </div>
+      </div>
+
+      </section>
     </div>
+    <footer class="main-footer">
+      <div class="footer-left">
+        Copyright &copy; 2019 <div class="bullet"></div> Built with <span style="color:red;">♥</span> by <a
+          href="https://github.com/coregameHD">LMPD Software</a>
+      </div>
+      <div class="footer-right">
+
+      </div>
+    </footer>
+  </div>
   </div>
 
   <!-- General JS Scripts -->

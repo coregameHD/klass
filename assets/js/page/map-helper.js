@@ -2,47 +2,49 @@
 
 // Helper Function: Generate marker with a number
 function generateMarker(aqi) {
-    var canvas = document.createElement('canvas');
-    canvas.height = 64;
-    canvas.width = 64;
+	var canvas = document.createElement('canvas');
+	canvas.height = 64;
+	canvas.width = 64;
 
-    var ctx = canvas.getContext("2d");
+	var ctx = canvas.getContext("2d");
 
-    if (aqi <= 50) {
-        ctx.fillStyle = "green";
-    } else if (aqi >= 51 && aqi <= 100) {
-        ctx.fillStyle = "yellow";
-    } else if (aqi >= 101 && aqi <= 150) {
-        ctx.fillStyle = "orange";
-    } else if (aqi >= 151) {
-        ctx.fillStyle = "red";
-    }
+	if (aqi <= 25) {
+		ctx.fillStyle = "blue";
+	} else if (aqi >= 26 && aqi <= 50) {
+		ctx.fillStyle = "green";
+	} else if (aqi >= 51 && aqi <= 100) {
+		ctx.fillStyle = "yellow";
+	} else if (aqi >= 101 && aqi <= 200) {
+		ctx.fillStyle = "orange";
+	} else if (aqi > 200) {
+		ctx.fillStyle = "red";
+	}
 
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "black";
-    ctx.beginPath();
-    ctx.arc(32, 32, 16, 0, Math.PI * 2, true);
-    ctx.fill();
+	// ctx.lineWidth = 2;
+	ctx.strokeStyle = "black";
+	ctx.beginPath();
+	ctx.arc(32, 32, 16, 0, Math.PI * 2, true);
+	ctx.fill();
 
-    if (aqi >= 51 && aqi <= 150) {
-        ctx.fillStyle = "black";
-    } else {
-        ctx.fillStyle = "white";
-    }
-    ctx.textAlign = "center";
-    ctx.font = "12px Lucida Console";
-    ctx.fillText(aqi, 32, 35, 64);
-    ctx.stroke();
+	if (aqi >= 51 && aqi <= 150) {
+		ctx.fillStyle = "black";
+	} else {
+		ctx.fillStyle = "white";
+	}
+	ctx.textAlign = "center";
+	ctx.font = "12px Lucida Console";
+	ctx.fillText(aqi, 32, 35, 64);
+	ctx.stroke();
 
-    var marker = canvas.toDataURL("image/png;base64");
-    return marker;
+	var marker = canvas.toDataURL("image/png;base64");
+	return marker;
 }
 
 // Helper Function: Display pop-up when user clicked on the marker
 function displayPopup(marker, title, content) {
-    google.maps.event.addListener(marker, "click", function (e) {
-        swal(title, content);
-    });
+	google.maps.event.addListener(marker, "click", function (e) {
+		swal(title, content);
+	});
 }
 
 
@@ -57,7 +59,7 @@ window.chartColors = {
 	grey: 'rgb(201, 203, 207)'
 };
 
-(function(global) {
+(function (global) {
 	var MONTHS = [
 		'January',
 		'February',
@@ -90,11 +92,11 @@ window.chartColors = {
 
 	Samples.utils = {
 		// Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
-		srand: function(seed) {
+		srand: function (seed) {
 			this._seed = seed;
 		},
 
-		rand: function(min, max) {
+		rand: function (min, max) {
 			var seed = this._seed;
 			min = min === undefined ? 0 : min;
 			max = max === undefined ? 1 : max;
@@ -102,7 +104,7 @@ window.chartColors = {
 			return min + (this._seed / 233280) * (max - min);
 		},
 
-		numbers: function(config) {
+		numbers: function (config) {
 			var cfg = config || {};
 			var min = cfg.min || 0;
 			var max = cfg.max || 1;
@@ -126,7 +128,7 @@ window.chartColors = {
 			return data;
 		},
 
-		labels: function(config) {
+		labels: function (config) {
 			var cfg = config || {};
 			var min = cfg.min || 0;
 			var max = cfg.max || 100;
@@ -145,7 +147,7 @@ window.chartColors = {
 			return values;
 		},
 
-		months: function(config) {
+		months: function (config) {
 			var cfg = config || {};
 			var count = cfg.count || 12;
 			var section = cfg.section;
@@ -160,18 +162,18 @@ window.chartColors = {
 			return values;
 		},
 
-		color: function(index) {
+		color: function (index) {
 			return COLORS[index % COLORS.length];
 		},
 
-		transparentize: function(color, opacity) {
+		transparentize: function (color, opacity) {
 			var alpha = opacity === undefined ? 0.5 : 1 - opacity;
 			return Color(color).alpha(alpha).rgbString();
 		}
 	};
 
 	// DEPRECATED
-	window.randomScalingFactor = function() {
+	window.randomScalingFactor = function () {
 		return Math.round(Samples.utils.rand(-100, 100));
 	};
 
@@ -182,10 +184,17 @@ window.chartColors = {
 	// Google Analytics
 	/* eslint-disable */
 	if (document.location.hostname.match(/^(www\.)?chartjs\.org$/)) {
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 		ga('create', 'UA-28909194-3', 'auto');
 		ga('send', 'pageview');
 	}

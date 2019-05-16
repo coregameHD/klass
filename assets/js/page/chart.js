@@ -5,10 +5,10 @@ var ctx = document.getElementById("chart_AQI").getContext('2d');
 var chart_AQI = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: array_name,
+    // labels: array_name,
     datasets: [{
       label: 'AQI Index',
-      data: array_pm25Level,
+      // data: array_pm25Level,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -49,10 +49,10 @@ var ctx = document.getElementById("chart_TempAndHumid").getContext('2d');
 var chart_TempAndHumid = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: array_name,
+    // labels: array_name,
     datasets: [{
       label: 'Temperature',
-      data: array_temp,
+      // data: array_temp,
       borderWidth: 2,
       backgroundColor: '#e83e8c',
       borderColor: '#e83e8c',
@@ -62,7 +62,7 @@ var chart_TempAndHumid = new Chart(ctx, {
     }, 
     {
       label: 'Humidity',
-      data: array_humidity,
+      // data: array_humidity,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',
@@ -177,7 +177,13 @@ document.getElementById("btn_temp_time_range-168").onclick = function () {
   getNodeLatestHistory(168)
 };
 
+$("#range-select li a").click(function () {
+  console.log('press')
+})
 
+$('#myDropdown').on('show.bs.dropdown', function () {
+  // do something…
+})
 
 function newDate(days) {
   return moment().add(days, 'd').toDate();
