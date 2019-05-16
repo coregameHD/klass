@@ -20,6 +20,7 @@
   <!-- Start GA -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
   <script src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.2/dist/browser/signalr.js"></script>
+  <script src="assets/js/realtime.js"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -126,6 +127,30 @@
                 </div>
                 <div class="card-body">
                   <canvas id="chart_TempAndHumid"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h4>Temperature</h4>
+                  <div class="card-header-action">
+                    <a id="btn_temp_time_range-2" class="btn btn-light">
+                      2 Hr
+                    </a>
+                    <a id="btn_temp_time_range-8" class="btn btn-light">
+                      8 Hr
+                    </a>
+                    <a id="btn_temp_time_range-24" class="btn btn-light">
+                      24 Hr
+                    </a>
+                    <a id="btn_temp_time_range-168" class="btn btn-light">
+                        1 Wk
+                      </a>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="chart_Temp"></canvas>
                 </div>
               </div>
             </div>

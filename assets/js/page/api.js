@@ -14,6 +14,14 @@ var array_mapname = [];
 var array_maplatitude = [];
 var array_maplongitude = [];
 
+//Node history
+var nodeHistory
+var tempGraphHistory = []
+
+// AQI Information
+var array_aqi = [];
+var array_api_node_name = [];
+
 // Init Map
 var array_marker = [];
 var map = new GMaps({
@@ -54,7 +62,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         array_pm1Level.push(data[i].pm1Level);
         array_temp.push(data[i].temp);
         array_humidity.push(data[i].humidity);
-        array_recordedOn.push(data[i].recordedOn);
+        array_recordedOn.push(new Date(data[i].recordedOn).toLocaleString());
 
         // Generate marker icon
         array_marker[i].icon = generateMarker(array_pm25Level[i]);
@@ -72,7 +80,41 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         map.addMarker(array_marker[i]);
 
         // Update chart
-        chart_AQI.update();
         chart_TempAndHumid.update();
     }
 });
+
+$.getJSON("https://klassaqi.azurewebsites.net", function(data){
+    data.forEach(function(element) {
+        array_api_node_name.push(element.name);
+        array_aqi.push(element.aqi);
+    });
+    chart_AQI.update();
+});
+
+getNodeLatestHistory(8)
+
+function getNodeLatestHistory(hours){
+    var currentTime = new Date();
+    currentTime.setHours(currentTime.getHours() - hours)
+    dateString = currentTime.toISOString()
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history/?limit=500&from="+dateString, function(data) {
+        nodeHistory = data
+        console.log(nodeHistory)
+        // tempGraphHistory = Object.values(getTempHistory())
+        getTempHistory()
+        console.log(tempGraphHistory)
+        chart_temp.update()
+    })
+}
+
+function getTempHistory(){
+    tempGraphHistory.length = 0
+    for(var i = 0; i < nodeHistory.length; i++){
+        tempGraphHistory.push({
+            x: moment(nodeHistory[i].recordedOn).format(),
+            y:nodeHistory[i].temp
+        })
+    }
+    // return data
+}
