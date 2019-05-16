@@ -5,10 +5,10 @@ var ctx = document.getElementById("chart_AQI").getContext('2d');
 var chart_AQI = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: array_name,
+    labels: array_api_node_name,
     datasets: [{
       label: 'AQI Index',
-      data: array_pm25Level,
+      data: array_aqi,
       borderWidth: 2,
       backgroundColor: '#6777ef',
       borderColor: '#6777ef',

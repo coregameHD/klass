@@ -18,6 +18,10 @@ var array_maplongitude = [];
 var nodeHistory
 var tempGraphHistory = []
 
+// AQI Information
+var array_aqi = [];
+var array_api_node_name = [];
+
 // Init Map
 var array_marker = [];
 var map = new GMaps({
@@ -76,9 +80,16 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function(data) {
         map.addMarker(array_marker[i]);
 
         // Update chart
-        chart_AQI.update();
         chart_TempAndHumid.update();
     }
+});
+
+$.getJSON("https://klassaqi.azurewebsites.net", function(data){
+    data.forEach(function(element) {
+        array_api_node_name.push(element.name);
+        array_aqi.push(element.aqi);
+    });
+    chart_AQI.update();
 });
 
 getNodeLatestHistory(8)
@@ -95,9 +106,6 @@ function getNodeLatestHistory(hours){
         console.log(tempGraphHistory)
         chart_temp.update()
     })
-    
-  
-
 }
 
 function getTempHistory(){
