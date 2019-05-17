@@ -24,34 +24,48 @@ var tempGraphHistory = []
 var humidGraphHistory = []
 var pm25GraphHistory = []
 var selectedNode = 0
+var currentSelectedDataDuration = 24
 
 // AQI Information
-var array_aqi = [];
-var array_api_node_name = [];
+var nodeAQIData = []
+
+var lastUpdateTimeInterval
 
 // Init Map
 var array_marker = [];
-var map = new GMaps({
-    div: '#AQI_map',
-    lat: 13.7298665,
-    lng: 100.7783111,
-    zoom: 17
+//var map = new GMaps({
+//    div: '#AQI_map',
+//    lat: 13.7298665,
+//    lng: 13.7298665,
+//    zoom: 17
+//});
+
+var map = new google.maps.Map(document.getElementById('AQI_map'), {
+    zoom: 16,
+    center: {
+        lat: 13.7299135,
+        lng: 100.7718136
+    },
 });
+
+
 
 loadAllData()
 
-$.getJSON("https://klassaqi.azurewebsites.net", function (data) {
-    //    data.forEach(function (element) {
-    //        array_api_node_name.push(element.name);
-    //        array_aqi.push(element.aqi);
-    //    });
-    //    chart_AQI.update();
-});
-
 
 function loadAllData() {
+    //Show spinner
+$.busyLoadSetup({
+	background: "rgba(103, 119, 239, 0.86)",
+	spinner: "circles",
+	animation: "fade",
+    text:"Getting data"
+});
+$.busyLoadFull("show");
+    
     getNodeInfo()
     getSensorCurrentValue()
+    getNodeLatestHistory(currentSelectedDataDuration)
 
 }
 
@@ -60,30 +74,88 @@ function getNodeInfo() {
     // Get data from server and store in 'array_marker'
     $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data) {
         nodesInfo = data
-        for (var i = 0; i < data.length; i++) {
-            // Create marker and push into the array
-            var temp = {
-                lat: data[i].latitude,
-                lng: data[i].longitude,
-                title: data[i].name,
-                icon: ''
-            };
-            console.log("i = ", i)
-            array_marker.push(temp);
-            google.maps.event.addListener(temp, "click", function (e) {
-                selectedNode = Number(i)
-                console.log("selected = "+selectedNode)
-                loadAllData()
-            })
 
-        }
-        
+        getAQIInfo()
 
-        getNodeLatestHistory(24)
+
+        //        getNodeLatestHistory(24)
 
     });
 }
 
+function getAQIInfo() {
+    $.getJSON("https://klassaqi.azurewebsites.net", function (data) {
+        nodeAQIData = data
+        createMarker()
+
+    });
+}
+
+function createMarker() {
+    //Clear previous marker
+    for (var i = 0; i < array_marker.length; i++) {
+        array_marker[i].setMap(null);
+    }
+    array_marker = []
+
+    for (var i = 0; i < nodesInfo.length; i++) {
+        var nodeAQI
+        nodeAQIData.forEach(function (e) {
+            if (e.name == nodesInfo[i].name) {
+                nodesAQI[i] = e.aqi
+            }
+        })
+
+        var contentString = "name = " + nodesInfo[i].name
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        // Create marker and push into the array
+        var marker = new google.maps.Marker({
+            title: nodesInfo[i].name,
+            position: new google.maps.LatLng(nodesInfo[i].latitude, nodesInfo[i].longitude),
+            map: map,
+            icon: generateMarker(nodesAQI[i])
+        });
+
+
+        console.log("i = ", i)
+        console.log(marker)
+        array_marker.push(marker);
+        google.maps.event.addListener(marker, 'click', function () {
+            if (navigator.userAgent.match(/Chrome|AppleWebKit/)) {
+                window.location.href = "#nodeInfo";
+                window.location.href = "#nodeInfo"; /* these take twice */
+            } else {
+                window.location.hash = "nodeInfo";
+            }
+
+            selectedNode = array_marker.indexOf(this)
+            console.log("selected = " + selectedNode)
+            loadAllData()
+        });
+
+
+        //        google.maps.event.addListener(marker, 'click', function () {
+        //            alert("I am marker " + marker.title);
+        //        });
+
+    }
+
+
+
+
+    //    array_marker.forEach(function(marker){
+    //        marker.addListener('click',function(){
+    //                           console.log(marker)
+    //                           })
+    //    })
+    
+     
+    $.busyLoadFull("hide");
+
+}
 
 
 
@@ -98,7 +170,7 @@ function getSensorCurrentValue() {
 
         }
 
-        var interval = setInterval(function () {
+        lastUpdateTimeInterval = setInterval(function () {
             var updateTime = moment(sensors[selectedNode].recordedOn)
             var updateTimeString = moment().diff(updateTime, 'second') + "s ago";
 
@@ -115,34 +187,19 @@ function getSensorCurrentValue() {
 
 
 
-//Get 24-hr pm2.5 value, average it and then calculate the aqi.
-function calculateAQI() {
-    for (var i = 0; i < nodesInfo.length; i++) {
-        var nodeName = nodesInfo[i].name
-        var nodeSum = 0
-        var count = 0
-        for (var j = 0; j < nodeHistory.length; j++) {
-            if (nodeHistory[j].name == nodeName) {
-                nodeSum += nodeHistory[j].pm25Level
-                count++
-            }
-        }
-        var avg = nodeSum / count
-        console.log("sum " + nodeSum + " count " + count)
-        nodesAQI[i] = calc_aqi(avg, "PM25")
-        console.log("aqi = " + nodesAQI[i])
-        console.log(array_marker[i])
-
-        array_marker[i].icon = generateMarker(nodesAQI[i])
-        map.addMarker(array_marker[i]);
-    }
-
-
-}
-
 
 
 function getNodeLatestHistory(hours) {
+    var timeString
+    if (hours == 168) {
+        timeString = "1 Week"
+    } else {
+        timeString = hours + " Hours"
+    }
+    document.getElementById("btn-select-range").innerHTML = timeString
+
+
+
     var currentTime = new Date();
     currentTime.setHours(currentTime.getHours() - hours)
     dateString = currentTime.toISOString()
@@ -151,9 +208,7 @@ function getNodeLatestHistory(hours) {
         console.log(nodeHistory)
         updateChart()
 
-        if (hours == 24) {
-            calculateAQI()
-        }
+
 
     })
 
@@ -166,7 +221,7 @@ function updateChart() {
     chart_temp.update()
     chart_Humid.update()
     chart_pm25.update()
-
+   
 
 }
 

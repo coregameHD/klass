@@ -31,9 +31,18 @@ function generateMarker(aqi) {
 	} else {
 		ctx.fillStyle = "white";
 	}
+    
 	ctx.textAlign = "center";
 	ctx.font = "12px Lucida Console";
-	ctx.fillText(aqi, 32, 35, 64);
+    
+    if (isNaN(aqi)){
+        	ctx.fillText("N/A", 32, 35, 64);
+
+    }
+    else{
+        	ctx.fillText(aqi, 32, 35, 64);
+
+    }
 	ctx.stroke();
 
 	var marker = canvas.toDataURL("image/png;base64");

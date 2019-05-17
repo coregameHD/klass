@@ -13,6 +13,8 @@
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.css" rel="stylesheet">
+
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -100,7 +102,7 @@
                             <h4 id="selected-node-name">Node name<span class="badge badge-success" id="selected-node-last-update-time">- min ago</span>
                             </h4>
                             <div class="card-header-action dropdown">
-                                <a data-toggle="dropdown" href="" class="btn btn-danger dropdown-toggle">24 Hours</a>
+                                <a id="btn-select-range" data-toggle="dropdown" href="" class="btn btn-danger dropdown-toggle">24 Hours</a>
                                 <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
                                     <li class="dropdown-title">Select Period</li>
                                     <li><a onclick="getNodeLatestHistory(2)" data-value="2" class="dropdown-item">2 Hours</a></li>
@@ -190,6 +192,7 @@
     </script>
     <script src="assets/modules/gmaps.js"></script>
     <script src="assets/modules/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/busy-load/dist/app.min.js"></script>
 
     <script src="assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
     <script src="assets/modules/jquery-ui/jquery-ui.min.js"></script>
