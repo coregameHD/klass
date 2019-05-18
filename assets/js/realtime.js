@@ -3,7 +3,7 @@ function nodeUpdated(data) {
   if (("Notification" in window) && (Notification.permission === "granted")) {
     var notification = new Notification("New data from " + parsedData.name);
   }
-  loadAllData()
+  loadAllData(false)
   iziToast.success({
     title: 'New data from ' + parsedData.name,
     message: 'AQI Index, Temperature & Humidity chart updated',

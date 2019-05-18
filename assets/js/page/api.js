@@ -41,19 +41,19 @@ var array_marker = [];
 //});
 
 var map = new google.maps.Map(document.getElementById('AQI_map'), {
-    zoom: 16,
+    zoom: 17,
     center: {
-        lat: 13.7299135,
-        lng: 100.7718136
+        lat: 13.7291448,
+        lng: 100.7755224
     },
 });
 
 
 
-loadAllData()
+loadAllData(true)
 
 
-function loadAllData() {
+function loadAllData(fullScreenLoading) {
     //Show spinner
 $.busyLoadSetup({
 	background: "rgba(103, 119, 239, 0.86)",
@@ -61,11 +61,14 @@ $.busyLoadSetup({
 	animation: "fade",
     text:"Getting data"
 });
+    
+if(fullScreenLoading){
 $.busyLoadFull("show");
     
     getNodeInfo()
     getSensorCurrentValue()
     getNodeLatestHistory(currentSelectedDataDuration)
+}
 
 }
 
@@ -86,6 +89,16 @@ function getNodeInfo() {
 function getAQIInfo() {
     $.getJSON("https://klassaqi.azurewebsites.net", function (data) {
         nodeAQIData = data
+        
+        nodeAQIData.forEach(function(e){
+            if(e.name == nodesInfo[selectedNode].name){
+                        document.getElementById("node-aqi").innerHTML = e.aqi
+
+            }
+        })
+        
+
+        
         createMarker()
 
     });
@@ -133,7 +146,7 @@ function createMarker() {
 
             selectedNode = array_marker.indexOf(this)
             console.log("selected = " + selectedNode)
-            loadAllData()
+            loadAllData(true)
         });
 
 
@@ -163,21 +176,58 @@ function createMarker() {
 function getSensorCurrentValue() {
 
     $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) {
+        sensors = data
+
+        
         for (var i = 0; i < data.length; i++) {
 
-            sensors = data
-            // displayPopup(array_marker[i], array_mapname[i], displayDetails);
+            
+            if(sensors[i].name == nodesInfo[selectedNode].name){
+                 document.getElementById("node-temperature").innerHTML = sensors[i].temp + "°c"
+                 document.getElementById("node-humidity").innerHTML = sensors[i].humidity + "% RH"
+                 document.getElementById("node-pm25").innerHTML = sensors[i].pm25Level + "ug/cm3"
+
+                
+            }
+            
 
         }
 
         lastUpdateTimeInterval = setInterval(function () {
-            var updateTime = moment(sensors[selectedNode].recordedOn)
+            
+            var node
+             sensors.forEach(function(e){
+            if(e.name == nodesInfo[selectedNode].name){
+                       node = e
+
+            }
+        })
+            
+            
+            
+            var updateTime = moment(node.recordedOn)
+            var secondFromLastUpdate = moment().diff(updateTime, 'second')
+            
+            console.log(secondFromLastUpdate)
+            
             var updateTimeString = moment().diff(updateTime, 'second') + "s ago";
 
+            
+            if (secondFromLastUpdate > 59){
+                updateTimeString = moment().diff(updateTime, 'minute') + "min ago";
+            }else if(secondFromLastUpdate > 3600){
+                updateTimeString = moment().diff(updateTime, 'hour') + "hour ago";
 
-            document.getElementById("selected-node-name").innerHTML = sensors[selectedNode].name + "  <span class=\"badge badge-success\" id=\"selected-node-last-update-time\">" + updateTimeString
+            }
+            
+            if(secondFromLastUpdate < 310){
+            document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-success\" > <i class=\"fas fa-circle\"></i> "  + "Online " + updateTimeString
+            }else{
+                  document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-danger\" > <i class=\"fas fa-circle\"></i> " + "No response "+ updateTimeString
+            }
 
         }, 1000)
+        
 
 
 
@@ -274,106 +324,4 @@ function updatePM25HistoryDataForGraph() {
 
     }
 
-}
-
-var STANDARD_AQI = [
-	[0, 25, 50, 100, 200], //AQI 
-	[0, 25, 37, 50, 90], //PM25 
-	[0, 50, 80, 120, 180], //PM10 
-	[0, 35, 50, 70, 120], //O3 
-	[0, 4.4, 6.4, 9, 30], //CO 
-	[0, 60, 106, 170, 340], //NO2 
-	[0, 100, 200, 300, 400], //SO2 
-];
-var AQI_COLORS = ['#3bccff', '#92d050', '#ffff00', '#ffa200', '#ff3b3b', '#ff3b3b'];
-
-function calc_aqi(average, fieldName) {
-    if (average < 0) return "-";
-    if (average == "") return "-";
-    if (isNaN(average)) return "-";
-
-    if (fieldName == "AQI")
-        return "-";
-    else if (fieldName == "PM25")
-        fieldNum = 1;
-    else if (fieldName == "PM10")
-        fieldNum = 2;
-    else if (fieldName == "O3")
-        fieldNum = 3;
-    else if (fieldName == "CO")
-        fieldNum = 4;
-    else if (fieldName == "NO2")
-        fieldNum = 5;
-    else if (fieldName == "SO2")
-        fieldNum = 6;
-    else
-        return "-";
-
-    var stepAdd;
-    if (fieldNum == 4) {
-        average = average.toFixed(1);
-        stepAdd = 0.1;
-    } else {
-        average = average.toFixed(0);
-        stepAdd = 1.0;
-    }
-    console.log("fieldNum = " + fieldNum + "; average = " + average);
-
-
-    /*
-    if(average > STANDARD_AQI[fieldNum][4]) {
-    	diff = STANDARD_AQI[fieldNum][4]-STANDARD_AQI[fieldNum][3];
-    	over = (average-STANDARD_AQI[fieldNum][4])*100/diff;
-    	over = parseInt(over.toFixed(0));
-    	if(over == 0) over=1;
-    	
-    	return STANDARD_AQI[0][4]+over;
-    }
-    else {
-    	for(i=3;i>=0;i--){
-    		if(average == STANDARD_AQI[fieldNum][i]) {
-    			return STANDARD_AQI[0][i+1];
-    		}
-    		else if(average > STANDARD_AQI[fieldNum][i]) {
-    			aqiLv = STANDARD_AQI[0][i];
-    			average -= STANDARD_AQI[fieldNum][i];
-    			
-    			aqiDiff = STANDARD_AQI[0][i+1]-STANDARD_AQI[0][i];
-    			valueDiff = STANDARD_AQI[fieldNum][i+1]-STANDARD_AQI[fieldNum][i];
-    			
-    			aqiLv += (average * aqiDiff) / valueDiff;
-    			//console.log(""+i+": "+average+"*"+aqiDiff+"/"+valueDiff);
-    			aqiLv = parseInt(aqiLv.toFixed(0));
-    			if(aqiLv == STANDARD_AQI[0][i])
-    				aqiLv ++;
-    			return aqiLv;
-    		}
-    	}
-    	return 0;
-    }
-    */
-
-    for (i = 1; i <= 4; i++) {
-        if (average <= STANDARD_AQI[fieldNum][i]) {
-            average -= STANDARD_AQI[fieldNum][i - 1] + (i == 1 ? 0 : stepAdd);
-            aqiDiff = STANDARD_AQI[0][i] - (STANDARD_AQI[0][i - 1] + (i == 1 ? 0 : 1));
-            valueDiff = STANDARD_AQI[fieldNum][i] - (STANDARD_AQI[fieldNum][i - 1] + (i == 1 ? 0 : stepAdd));
-
-            aqiLv = STANDARD_AQI[0][i - 1] + (i == 1 ? 0 : 1);
-            aqiLv += (average * aqiDiff) / valueDiff;
-            console.log("" + i + ": " + average + "*" + aqiDiff + "/" + valueDiff);
-            return parseInt(aqiLv.toFixed(0));
-        }
-    }
-    //console.log("average = "+average);
-    average -= STANDARD_AQI[fieldNum][4];
-
-    if (fieldNum == 1)
-        return average + 200;
-    else if (fieldNum == 2) {
-        average = 201 + ((average - 1) * 0.5);
-        return parseInt(average.toFixed(0));
-    } else if (fieldNum == 3)
-        return average + 200;
-    return 201;
 }

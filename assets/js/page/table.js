@@ -10,7 +10,7 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) 
   table += "</div>";
 
   //Showing the table inside html
-  document.getElementById("table_sensors").innerHTML = table;
+//  document.getElementById("table_sensors").innerHTML = table;
 });
 
 // Sensor Information History Table
@@ -40,5 +40,5 @@ $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data
   table += "</div>";
 
   //Showing the table inside html
-  document.getElementById("table_nodeinfos").innerHTML = table;
+//  document.getElementById("table_nodeinfos").innerHTML = table;
 });
