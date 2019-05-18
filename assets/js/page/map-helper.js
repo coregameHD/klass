@@ -1,6 +1,6 @@
 "use strict";
 
-// Helper Function: Generate marker with a number
+// Helper Function: Generate Google Maps marker with an AQI number
 function generateMarker(aqi) {
 	var canvas = document.createElement('canvas');
 	canvas.height = 64;
@@ -9,39 +9,42 @@ function generateMarker(aqi) {
 	var ctx = canvas.getContext("2d");
 
 	if (aqi <= 25) {
-		ctx.fillStyle = "blue";
+		ctx.fillStyle = "#3BCCFF";	//Light Blue
+		ctx.strokeStyle = "#2D9ABF";
 	} else if (aqi >= 26 && aqi <= 50) {
-		ctx.fillStyle = "green";
+		ctx.fillStyle = "#92D050";	//Green
+		ctx.strokeStyle = "#74A540";
 	} else if (aqi >= 51 && aqi <= 100) {
-		ctx.fillStyle = "yellow";
+		ctx.fillStyle = "#FFF200";	//Yellow
+		ctx.strokeStyle = "#D3A902";
 	} else if (aqi >= 101 && aqi <= 200) {
-		ctx.fillStyle = "orange";
+		ctx.fillStyle = "#FFA200";	//Orange
+		ctx.strokeStyle = "#BF7900";
 	} else if (aqi > 200) {
-		ctx.fillStyle = "red";
+		ctx.fillStyle = "#FF3B3B";	//Red
+		ctx.strokeStyle = "#BF2D2D";
 	}
 
-	// ctx.lineWidth = 2;
-	ctx.strokeStyle = "black";
+	ctx.lineWidth = 2;
 	ctx.beginPath();
-	ctx.arc(32, 32, 16, 0, Math.PI * 2, true);
+	ctx.arc(32, 32, 24, 0, Math.PI * 2, true);
 	ctx.fill();
 
-	if (aqi >= 51 && aqi <= 150) {
-		ctx.fillStyle = "black";
-	} else {
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.font = "bold 14px Segoe UI";
+
+	if (aqi > 200) {
 		ctx.fillStyle = "white";
+	} else {
+		ctx.fillStyle = "#17202A";
 	}
     
-	ctx.textAlign = "center";
-	ctx.font = "12px Lucida Console";
-    
     if (isNaN(aqi)){
-        	ctx.fillText("N/A", 32, 35, 64);
-
+		ctx.fillText("N/A", 32, 32, 64);
     }
     else{
-        	ctx.fillText(aqi, 32, 35, 64);
-
+		ctx.fillText(aqi, 32, 32, 64);
     }
 	ctx.stroke();
 
