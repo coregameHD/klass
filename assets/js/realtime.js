@@ -6,7 +6,7 @@ function nodeUpdated(data) {
   loadAllData(false)
   iziToast.success({
     title: 'New data from ' + parsedData.name,
-    message: 'AQI Index, Temperature & Humidity chart updated',
+    message: 'Data updated',
     position: 'topRight',
     timeout: 2000,
   });
