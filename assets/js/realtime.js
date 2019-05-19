@@ -8,7 +8,7 @@ function nodeUpdated(data) {
     title: 'New data from ' + parsedData.name,
     message: 'Data updated',
     position: 'topRight',
-    timeout: 2000,
+    timeout: 5000,
   });
 
 }
