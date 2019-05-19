@@ -26,6 +26,12 @@ var map = new google.maps.Map(document.getElementById('AQI_map'), {
     },
 });
 
+$.busyLoadSetup({
+    background: "rgba(103, 119, 239, 0.86)",
+    spinner: "circles",
+    animation: "fade",
+    text: "Getting data"
+});
 
 
 loadAllData(true)
@@ -33,45 +39,40 @@ loadAllData(true)
 
 function loadAllData(fullScreenLoading) {
     //Show spinner
-    $.busyLoadSetup({
-        background: "rgba(103, 119, 239, 0.86)",
-        spinner: "circles",
-        animation: "fade",
-        text:"Getting data"
-    });
-    
-    if(fullScreenLoading){
+
+
+    if (fullScreenLoading) {
         $.busyLoadFull("show");
-        
-        getNodeInfo()
-        getSensorCurrentValue()
-        getNodeLatestHistory(currentSelectedDataDuration)
     }
-    
+    getNodeInfo()
+    getSensorCurrentValue()
+    getNodeLatestHistory(currentSelectedDataDuration)
+
+
 }
 
 
 function getNodeInfo() {
     // Get data from server and store in 'array_marker'
     $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data) {
-    nodesInfo = data
-    
-    getAQIInfo()
-});
+        nodesInfo = data
+
+        getAQIInfo()
+    });
 }
 
 function getAQIInfo() {
     $.getJSON("https://klassaqi.azurewebsites.net", function (data) {
-    nodeAQIData = data
-    
-    nodeAQIData.forEach(function(e){
-        if(e.name == nodesInfo[selectedNode].name){
-            document.getElementById("node-aqi").innerHTML = e.aqi
-            
-        }
-    })
-    createMarker();
-});
+        nodeAQIData = data
+
+        nodeAQIData.forEach(function (e) {
+            if (e.name == nodesInfo[selectedNode].name) {
+                document.getElementById("node-aqi").innerHTML = e.aqi
+
+            }
+        })
+        createMarker();
+    });
 }
 
 function createMarker() {
@@ -80,7 +81,7 @@ function createMarker() {
         array_marker[i].setMap(null);
     }
     array_marker = []
-    
+
     for (var i = 0; i < nodesInfo.length; i++) {
         var nodeAQI
         nodeAQIData.forEach(function (e) {
@@ -88,12 +89,12 @@ function createMarker() {
                 nodesAQI[i] = e.aqi
             }
         })
-        
+
         var contentString = "name = " + nodesInfo[i].name
         var infowindow = new google.maps.InfoWindow({
             content: contentString
         });
-        
+
         // Create marker and push into the array
         var marker = new google.maps.Marker({
             title: nodesInfo[i].name,
@@ -101,7 +102,7 @@ function createMarker() {
             map: map,
             icon: generateMarker(nodesAQI[i])
         });
-        
+
         console.log("i = ", i)
         console.log(marker)
         array_marker.push(marker);
@@ -112,58 +113,58 @@ function createMarker() {
             } else {
                 window.location.hash = "nodeInfo";
             }
-            
+
             selectedNode = array_marker.indexOf(this)
             console.log("selected = " + selectedNode)
             loadAllData(true)
         });
     }
     $.busyLoadFull("hide");
-    
+
 }
 
 function getSensorCurrentValue() {
-    
+
     $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) {
-    sensors = data
-    
-    
-    for (var i = 0; i < data.length; i++) {
-        
-        
-        if(sensors[i].name == nodesInfo[selectedNode].name){
-            document.getElementById("node-temperature").innerHTML = sensors[i].temp + "°c"
-            document.getElementById("node-humidity").innerHTML = sensors[i].humidity + "% RH"
-            document.getElementById("node-pm25").innerHTML = sensors[i].pm25Level + "ug/cm3"
-        }
-    }
-    
-    lastUpdateTimeInterval = setInterval(function () {
-        var node
-        sensors.forEach(function(e){
-            if(e.name == nodesInfo[selectedNode].name){
-                node = e
+        sensors = data
+
+
+        for (var i = 0; i < data.length; i++) {
+
+
+            if (sensors[i].name == nodesInfo[selectedNode].name) {
+                document.getElementById("node-temperature").innerHTML = sensors[i].temp + "°c"
+                document.getElementById("node-humidity").innerHTML = sensors[i].humidity + "% RH"
+                document.getElementById("node-pm25").innerHTML = sensors[i].pm25Level + "ug/cm3"
             }
-        })
-        
-        var updateTime = moment(node.recordedOn)
-        var secondFromLastUpdate = moment().diff(updateTime, 'second')
-        var updateTimeString = moment().diff(updateTime, 'second') + "s ago";
-        
-        if (secondFromLastUpdate > 59){
-            updateTimeString = moment().diff(updateTime, 'minute') + "min ago";
-        }else if(secondFromLastUpdate > 3600){
-            updateTimeString = moment().diff(updateTime, 'hour') + "hour ago";
         }
-        
-        if(secondFromLastUpdate < 310){
-            document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-success\" > <i class=\"fas fa-circle\"></i> "  + "Online " + updateTimeString
-        }else{
-            document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-danger\" > <i class=\"fas fa-circle\"></i> " + "No response "+ updateTimeString
-        }
-        
-    }, 1000)
-});
+
+        lastUpdateTimeInterval = setInterval(function () {
+            var node
+            sensors.forEach(function (e) {
+                if (e.name == nodesInfo[selectedNode].name) {
+                    node = e
+                }
+            })
+
+            var updateTime = moment(node.recordedOn)
+            var secondFromLastUpdate = moment().diff(updateTime, 'second')
+            var updateTimeString = moment().diff(updateTime, 'second') + "s ago";
+
+            if (secondFromLastUpdate > 59) {
+                updateTimeString = moment().diff(updateTime, 'minute') + "min ago";
+            } else if (secondFromLastUpdate > 3600) {
+                updateTimeString = moment().diff(updateTime, 'hour') + "hour ago";
+            }
+
+            if (secondFromLastUpdate < 310) {
+                document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-success\" > <i class=\"fas fa-circle\"></i> " + "Online " + updateTimeString
+            } else {
+                document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-danger\" > <i class=\"fas fa-circle\"></i> " + "No response " + updateTimeString
+            }
+
+        }, 1000)
+    });
 }
 
 function getNodeLatestHistory(hours) {
@@ -174,15 +175,15 @@ function getNodeLatestHistory(hours) {
         timeString = hours + " Hours"
     }
     document.getElementById("btn-select-range").innerHTML = timeString
-    
+
     var currentTime = new Date();
     currentTime.setHours(currentTime.getHours() - hours)
     dateString = currentTime.toISOString()
     $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history/?limit=500&from=" + dateString, function (data) {
-    nodeHistory = data
-    console.log(nodeHistory)
-    updateChart()
-});
+        nodeHistory = data
+        console.log(nodeHistory)
+        updateChart()
+    });
 }
 
 function updateChart() {
