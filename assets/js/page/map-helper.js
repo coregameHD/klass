@@ -40,12 +40,12 @@ function generateMarker(aqi) {
 		ctx.fillStyle = "#17202A";
 	}
     
-    if (isNaN(aqi)){
-		ctx.fillText("N/A", 32, 32, 64);
-    }
-    else{
-		ctx.fillText(aqi, 32, 32, 64);
-    }
+	if (isNaN(aqi)){
+	ctx.fillStyle = "white";
+	ctx.fillText("N/A", 32, 32, 64);
+	} else {
+	ctx.fillText(aqi, 32, 32, 64);
+	}
 	ctx.stroke();
 
 	var marker = canvas.toDataURL("image/png;base64");
