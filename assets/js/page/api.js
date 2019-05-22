@@ -133,9 +133,9 @@ function getSensorCurrentValue() {
 
 
             if (sensors[i].name == nodesInfo[selectedNode].name) {
-                document.getElementById("node-temperature").innerHTML = sensors[i].temp + "°c"
+                document.getElementById("node-temperature").innerHTML = sensors[i].temp + "°C"
                 document.getElementById("node-humidity").innerHTML = sensors[i].humidity + "% RH"
-                document.getElementById("node-pm25").innerHTML = sensors[i].pm25Level + "ug/cm3"
+                document.getElementById("node-pm25").innerHTML = sensors[i].pm25Level + " ug/cm³"
             }
         }
 

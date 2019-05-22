@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
 
     <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/modules/bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -94,62 +97,107 @@
 
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Who are we?</h4>
+                                <h4>About K-LASS</h4>
                             </div>
                             <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non vestibulum enim.
-                                    Donec mattis eros ut ante sollicitudin sagittis. Ut rhoncus semper commodo. Nulla ut
-                                    semper nibh. Nunc eros elit, viverra eu nunc eget, varius maximus lectus. Integer
-                                    consectetur facilisis magna, at mattis metus fringilla sed. Ut rutrum bibendum
-                                    gravida. Phasellus orci ligula, iaculis eu hendrerit et, suscipit eu ipsum. Quisque
-                                    metus nisl, tempor vel mi non, mollis viverra urna. Duis commodo pharetra tristique.
-                                    Proin vulputate eleifend accumsan. Donec ornare nibh vel leo condimentum, in pretium
-                                    velit commodo.</p>
+                                <p>In the present day in Thailand, there has been a large surge in public interest over
+                                    air quality monitoring due to a record year in air pollution and several incidences
+                                    of large amounts of dust particles and smog covering large metropolitan areas across
+                                    the country. Combined with a lack of trust in official data sources and the demand
+                                    for independently provided information, our team figured that a system that could
+                                    wirelessly and automatically collect and log air quality information over an area
+                                    and then present it in useful and easy to understand format would be greatly
+                                    beneficial to the public. Therefore, our team decided to create the K-LASS platform.
+                                </p>
 
                                 <img class="d-block w-100"
                                     src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
                                     alt="cat">
 
-                                <p>Nunc feugiat neque vitae ante imperdiet tincidunt. Mauris viv</p>
+                                <p>To achieve this, our team developed a LoRA node-based infrastructure of several
+                                    devices which collects humidity, temperature and PM 2.5 data and sends it to a
+                                    central gateway node using LoRA. A central server is used to collect and maintain
+                                    the data sent from the gateway. Then a web-based frontend is used to present the
+                                    data in a graphical representation to the public.</p>
 
-                                <p>In molestie libero a leo auctor, et aliquam odio scelerisque. Quisque elementum ac
-                                    lorem et ultricies. Nullam laoreet dolor sollicitudin nisi pharetra finibus. Proin
-                                    in dolor accumsan, lacinia justo eget, sagittis velit. Cras sollicitudin eleifend
-                                    elit vitae accumsan. Morbi luctus nunc quis euismod hendrerit. Vestibulum dapibus
-                                    lacinia ullamcorper. Integer suscipit feugiat ante sit amet scelerisque. Nunc
-                                    tincidunt pretium commodo. Praesent aliquam dui in lectus suscipit auctor nec nec
-                                    lectus. Nullam et gravida sem. Vivamus hendrerit quam nec augue lobortis tristique.
-                                </p>
-
-                                <p>Vestibulum elementum condimentum facilisis. Phasellus pretium eros dolor, nec
-                                    faucibus velit mattis pharetra. Curabitur at elementum turpis, nec euismod eros.
-                                    Duis gravida felis ex, sit amet tempor erat fringilla ornare. Pellentesque
-                                    condimentum viverra porta. Suspendisse lacus odio, lobortis at purus et, condimentum
-                                    auctor mi. Sed non dolor lacinia, ornare lorem at, sodales orci. Donec maximus
-                                    tellus quis tempus convallis. Aliquam eget elit at tortor molestie blandit. Proin
-                                    accumsan posuere congue.</p>
-
-                                <p>Morbi feugiat velit ut turpis tincidunt porttitor. Vivamus dapibus sem libero, nec
-                                    hendrerit felis iaculis id. Duis ullamcorper nunc quam. Sed ac luctus augue. Aliquam
-                                    bibendum, lacus eu feugiat imperdiet, est eros pharetra erat, quis porttitor massa
-                                    nulla sed enim. Suspendisse luctus semper vulputate. Suspendisse non tristique orci.
-                                    Vestibulum sapien orci, interdum dignissim feugiat vehicula, efficitur quis leo.
-                                    Mauris convallis orci nec nisl bibendum aliquam. In tellus tortor, varius quis
-                                    tortor quis, cursus posuere ex. Mauris semper velit ipsum, et commodo eros lobortis
-                                    in. Nullam ligula libero, pulvinar molestie eleifend ut, porttitor quis ipsum.</p>
-                            </div>
-                            <div class="card-footer bg-whitesmoke">
-                                <p>This is card footer</p>
+                                <p>To test the viability of the system, two sensor nodes and one gateway were
+                                    constructed and one server was setup using Azure cloud services. The two nodes were
+                                    first tested outdoors for a week and then tested at KMITL in real conditions. The
+                                    nodes proved to be able to function despite extreme heat and heavy rain, but it was
+                                    found that the heavy rain did affect the accuracy of the PM2.5 sensor readings</p>
                             </div>
                         </div>
                     </div>
-
-
                 </section>
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h4>Developer Team</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled user-details list-unstyled-border list-unstyled-noborder">
+                            <li class="media">
+                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                    src="https://food.bigonegroup.com/wp-content/uploads/2012/12/Bigga-Choc-18-g.jpg">
+                                <div class="media-body">
+                                    <div class="media-title">BIGGA</div>
+                                    <div class="text-job text-muted">Project Advisor</div>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                    src="https://avatars0.githubusercontent.com/u/19774345">
+                                <div class="media-body">
+                                    <div class="media-title">MaxMac_STN</div>
+                                    <div class="text-job text-muted">Hardware Developer</div>
+                                </div>
+                                <a href="https://github.com/maxmacstn" class="btn btn-social-icon mr-1 btn-github">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="media">
+                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                    src="https://avatars3.githubusercontent.com/u/23165014">
+                                <div class="media-body">
+                                    <div class="media-title">Tobalation</div>
+                                    <div class="text-job text-muted">Hardware Developer</div>
+                                </div>
+                                <a href="https://github.com/Tobalation" class="btn btn-social-icon mr-1 btn-github">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="media">
+                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                    src="https://avatars2.githubusercontent.com/u/22619974">
+                                <div class="media-body">
+                                    <div class="media-title">EnviableYapper0</div>
+                                    <div class="text-job text-muted">Backend Developer</div>
+                                </div>
+                                <a href="https://github.com/EnviableYapper0" class="btn btn-social-icon mr-1 btn-github">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="media">
+                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                    src="https://avatars1.githubusercontent.com/u/22574003">
+                                <div class="media-body">
+                                    <div class="media-title">coregameHD</div>
+                                    <div class="text-job text-muted">Frontend Developer</div>
+                                </div>
+                                <a href="https://github.com/coregameHD" class="btn btn-social-icon mr-1 btn-github">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2019 <div class="bullet"></div> Design By <a href="https://github.com/coregameHD">LMPD
+                    Copyright &copy; 2019 <div class="bullet"></div> Design By <a
+                        href="https://github.com/coregameHD">LMPD
                         Software</a>
                 </div>
                 <div class="footer-right">
@@ -169,8 +217,10 @@
     <script src="assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
+    <script src="assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
 
     <!-- Page Specific JS File -->
+    <script src="assets/js/page/users.js"></script>
 
     <!-- Template JS File -->
     <script src="assets/js/scripts.js"></script>
