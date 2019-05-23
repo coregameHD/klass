@@ -64,7 +64,7 @@
               <a href="features.html" class="nav-link"><i class="fas fa-list-ol"></i><span>Features</span></a>
             </li>
             <li class="nav-item active">
-              <a href="details.html" class="nav-link"><i class="fas fa-code"></i><span>API</span></a>
+              <a href="details.html" class="nav-link"><i class="fas fa-code"></i><span>API Docs</span></a>
             </li>
             <li class="nav-item">
               <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i><span>About</span></a>
@@ -90,7 +90,7 @@
 
             <div class="card card-success">
               <div class="card-header">
-                <h4>Sensors Information</h4>
+                <h4>Retriving Latest Sensors Information</h4>
                 <div class="card-header-action">
                   <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/sensors" target="_blank">
                     Link
@@ -106,10 +106,9 @@
               <div class="card-footer bg-whitesmoke">
                 <div class="section-title mt-0">Response</div>
                 <p>A <abbr title="JavaScript Object Notation">JSON</abbr> with a following structure</p>
-
                 <div class="table-responsive">
-                  <table class="table table-sm">
-                    <thead>
+                  <table class="table table-sm table-bordered">
+                    <thead class="thead-light">
                       <tr>
                         <th scope="col">Field</th>
                         <th scope="col">Type</th>
@@ -125,7 +124,7 @@
                       <tr>
                         <th scope="row">name</th>
                         <td>String</td>
-                        <td>The name of the node 
+                        <td>The name of the node
                         </td>
                       </tr>
                       <tr>
@@ -133,7 +132,6 @@
                         <td>Integer</td>
                         <td>Level of PM 2.5
                         </td>
-                        
                       </tr>
                       <tr>
                         <th scope="row">pm10Level</th>
@@ -146,26 +144,33 @@
                         <td>Level of PM 1</td>
                       </tr>
                       <tr>
+                        <th scope="row">temp</th>
+                        <td>Float</td>
+                        <td>The temperature</td>
+                      </tr>
+                      <tr>
                         <th scope="row">humidity</th>
-                        <td>Integer</td>
+                        <td>Float</td>
                         <td>The humidity</td>
                       </tr>
                       <tr>
-                          <th scope="row">temp</th>
-                          <td>Integer</td>
-                          <td>The temperature</td>
-                        </tr>
+                        <th scope="row">recordedOn</th>
+                        <td>String</td>
+                        <td><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>-formatted datetime of when the node was created</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
 
-                <p><b>Note:</b> Only id, name, and recordedOn are guarantee to be present. The others property may not appear if the node does not have that sensor. I.E. If a node does not have the humidity and temperature sensor then those two properties will not be present.</p>
+                <p><b>Note:</b> Only id, name, and recordedOn are guarantee to be present. The others property may not
+                  appear if the node does not have that sensor. I.E. If a node does not have the humidity and
+                  temperature sensor then those two properties will not be present.</p>
               </div>
             </div>
 
             <div class="card card-success">
               <div class="card-header">
-                <h4>Sensors Information History</h4>
+                <h4>Retriving Detailed Sensor Information History</h4>
                 <div class="card-header-action">
                   <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/sensors/history" target="_blank">
                     Link
@@ -174,30 +179,49 @@
               </div>
               <div class="card-body">
                 <p>Perform <span class="badge badge-success">GET</span> request to
-                  <code>https://api.klass.greenkmitl.com/api/sensors/history</code></p>
-
+                  <code>https://api.klass.greenkmitl.com/api/sensors/history/{optional-slug}</code></p>
+                <p>This operation will retrieve sensor information as specified in the query string.</p>
               </div>
               <div class="card-footer bg-whitesmoke">
-                <p>Use <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> to specified the following
-                  parameters (all optional):</p>
-                <p>Type: Datetime <a href="https://en.wikipedia.org/wiki/ISO_8601">(ISO-8601 standard)</a></p>
-                <ui>
-                  <li>from: only query for the sensor information after this time</li>
-                  <li>to: only query for the sensor information before this time</li>
-                </ui>
-                <p></p>
-                <p>Type: Integer</p>
-                <ui>
-                  <li>limit: Specify number of sensor information per page [Default: 50]</li>
-                  <li>page: Specify page [Default: 0]</li>
-                </ui>
-                <p></p>
-              </div>
+                  <div class="section-title mt-0">Response</div>
+                  <p>Use <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> to specified the following
+                    parameters (all optional):</p>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Query String</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">?from={datetime}</th>
+                          <td>Only query for the sensor information after this time</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">?to={datetime}</th>
+                            <td>Only query for the sensor information before this time</td>
+                          </tr>
+                        <tr>
+                          <th scope="row">?limit={integer}</th>
+                          <td>Specify number of sensor information per page <br><b>Default:</b> 50</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">?page={integer}</th>
+                            <td>Specify page <br><b>Default:</b> 0</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                
             </div>
 
             <div class="card card-success">
               <div class="card-header">
-                <h4>Node Information</h4>
+                <h4>Retriving Node Information</h4>
                 <div class="card-header-action">
                   <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/nodeinfos" target="_blank">
                     Link
@@ -207,8 +231,52 @@
               <div class="card-body">
                 <p>Perform <span class="badge badge-success">GET</span> request to
                   <code>https://api.klass.greenkmitl.com/api/nodeinfos</code></p>
+                <p>This operation will retrive information that the server has about each node.</p>
                 <div id="table_nodeinfos"></div>
               </div>
+              <div class="card-footer bg-whitesmoke">
+                  <div class="section-title mt-0">Response</div>
+                  <p>A <abbr title="JavaScript Object Notation">JSON</abbr> with a following structure</p>
+                  <div class="table-responsive">
+                    <table class="table table-sm table-bordered">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Field</th>
+                          <th scope="col">Type</th>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">id</th>
+                          <td>String</td>
+                          <td>Internal ID for the node</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">name</th>
+                          <td>String</td>
+                          <td>The name of the node
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">latitude</th>
+                          <td>Float</td>
+                          <td>The latitude location of the node</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">longitude</th>
+                          <td>Float</td>
+                          <td>The longtitude location of the node</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">active</th>
+                          <td>Boolean</td>
+                          <td>Whether the node is active (still sending data) or not</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
             </div>
 
             <div class="card card-danger">
