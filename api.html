@@ -89,13 +89,13 @@
               <div class="card-header">
                 <h4>Sensors Information</h4>
                 <div class="card-header-action">
-                  <a class="btn btn-light" href="https://lapsscentral.azurewebsites.net/api/sensors" target="_blank">
+                  <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/sensors" target="_blank">
                     Link
                   </a>
                 </div>
               </div>
               <div class="card-body">
-                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/sensors</code></p>
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>https://api.klass.greenkmitl.com/api/sensors</code></p>
                 <div id="table_sensors"></div>
               </div>
             </div>
@@ -104,14 +104,17 @@
               <div class="card-header">
                 <h4>Sensors Information History</h4>
                 <div class="card-header-action">
-                  <a class="btn btn-light" href="https://lapsscentral.azurewebsites.net/api/sensors/history"
+                  <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/sensors/history"
                     target="_blank">
                     Link
                   </a>
                 </div>
               </div>
               <div class="card-body">
-                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/sensors/history</code></p>
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>https://api.klass.greenkmitl.com/api/sensors/history</code></p>
+                
+              </div>
+              <div class="card-footer bg-whitesmoke">
                 <p>Use <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> to specified the following
                   parameters (all optional):</p>
                 <p>Type: Datetime <a href="https://en.wikipedia.org/wiki/ISO_8601">(ISO-8601 standard)</a></p>
@@ -126,20 +129,20 @@
                   <li>page: Specify page [Default: 0]</li>
                 </ui>
                 <p></p>
-              </div>
+            </div>
             </div>
 
             <div class="card card-success">
               <div class="card-header">
                 <h4>Node Information</h4>
                 <div class="card-header-action">
-                  <a class="btn btn-light" href="https://lapsscentral.azurewebsites.net/api/nodeinfos" target="_blank">
+                  <a class="btn btn-light" href="https://api.klass.greenkmitl.com/api/nodeinfos" target="_blank">
                     Link
                   </a>
                 </div>
               </div>
               <div class="card-body">
-                <p>Perform <span class="badge badge-success">GET</span> request to <code>/api/nodeinfos</code></p>
+                <p>Perform <span class="badge badge-success">GET</span> request to <code>https://api.klass.greenkmitl.com/api/nodeinfos</code></p>
                 <div id="table_nodeinfos"></div>
               </div>
             </div>
@@ -149,7 +152,7 @@
                 <h4>Sending Sensor Information</h4>
               </div>
               <div class="card-body">
-                <p>Perform <span class="badge badge-danger">POST</span> request to <code>/api/sensors</code></p>
+                <p>Perform <span class="badge badge-danger">POST</span> request to <code>https://api.klass.greenkmitl.com/api/sensors</code></p>
               </div>
             </div>
 
