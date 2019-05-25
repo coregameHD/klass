@@ -153,7 +153,7 @@ function getSensorCurrentValue() {
 
             if (secondFromLastUpdate > 59) {
                 updateTimeString = moment().diff(updateTime, 'minute') + "min ago";
-            } else if (secondFromLastUpdate > 3600) {
+            }if (secondFromLastUpdate > 3600) {
                 updateTimeString = moment().diff(updateTime, 'hour') + "hour ago";
             }
 
