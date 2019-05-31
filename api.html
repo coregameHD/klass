@@ -13,6 +13,7 @@
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
+  <link rel="stylesheet" href="assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
@@ -104,6 +105,7 @@
               </div>
               <div class="card-footer bg-whitesmoke">
                 <div class="section-title mt-0">Response</div>
+                <p>HTTP status code: 200 OK</p>
                 <p>A <abbr title="JavaScript Object Notation">JSON</abbr> with a following structure</p>
                 <div class="table-responsive">
                   <table class="table table-sm table-bordered">
@@ -183,6 +185,7 @@
               </div>
               <div class="card-footer bg-whitesmoke">
                   <div class="section-title mt-0">Response</div>
+                  <p>HTTP status code: 200 OK</p>
                   <p>Use <a href="https://en.wikipedia.org/wiki/Query_string">query string</a> to specify the following
                     parameters (all optional):</p>
                   <div class="table-responsive">
@@ -235,6 +238,7 @@
               </div>
               <div class="card-footer bg-whitesmoke">
                   <div class="section-title mt-0">Response</div>
+                  <p>HTTP status code: 200 OK</p>
                   <p>A <abbr title="JavaScript Object Notation">JSON</abbr> with a following structure</p>
                   <div class="table-responsive">
                     <table class="table table-sm table-bordered">
@@ -289,6 +293,15 @@
               <div class="card-footer bg-whitesmoke">
                 <div class="section-title mt-0">Response</div>
                 <p>HTTP status code: 201</p>
+                <div class="section-title mt-0">Example request body</div>
+                <pre class="language-javascript code-toolbar"><code class=" language-javascript">{
+  "name": "Sample Input",
+  "pm25Level": 42,
+  "pm10Level": 10,
+  "pm1Level": 8,
+  "humidity": 44,
+  "temp": 36 
+}</code><div class="toolbar"><div class="toolbar-item"><span>JavaScript</span></div><div class="toolbar-item"><a>Copy</a></div></div></pre>
               </div>
             </div>
 
@@ -327,6 +340,7 @@
 
   <!-- Page Specific JS File -->
   <script src="assets/js/page/table.js"></script>
+  <script src="assets/modules/prism/prism.js"></script>
 
   <!-- Template JS File -->
   <script src="assets/js/scripts.js"></script>
