@@ -8,3 +8,8 @@ In the present day in Thailand, there has been a large surge in public interest 
 To achieve this, our team developed a LoRA node-based infrastructure of several devices which collects humidity, temperature and PM 2.5 data and sends it to a central gateway node using LoRA. A central server is used to collect and maintain the data sent from the gateway. Then a web-based frontend is used to present the data in a graphical representation to the public.
 
 To test the viability of the system, two sensor nodes and one gateway were constructed and one server was setup using Azure cloud services. The two nodes were first tested outdoors for a week and then tested at KMITL in real conditions. The nodes proved to be able to function despite extreme heat and heavy rain, but it was found that the heavy rain did affect the accuracy of the PM2.5 sensor readings
+
+## Website
+Visit our website https://klass.greenkmitl.com/
+
+![K-LASS Ads](https://i.imgur.com/Xt1eozK.png)
