@@ -166,6 +166,17 @@
                 <p><b>Note:</b> Only id, name, and recordedOn are guaranteed to be present. The others property may not
                   appear if the node does not have that sensor. I.E. If a node does not have the humidity and
                   temperature sensor then those two properties will not be present.</p>
+                  <div class="section-title mt-0">Example request body</div>
+                <pre class="language-javascript code-toolbar"><code class=" language-javascript">{
+  id: "5cf0cb68174f1556fc80c02e",
+  name: "Node 2",
+  pm25Level: 4,
+  pm10Level: 4,
+  pm1Level: 4,
+  temp: 28.5,
+  humidity: 66,
+  recordedOn: "2019-05-31T06:36:24.974Z"
+}</code><div class="toolbar"><div class="toolbar-item"><span>JavaScript</span></div><div class="toolbar-item"><a>Copy</a></div></div></pre>
               </div>
             </div>
 
@@ -279,6 +290,14 @@
                       </tbody>
                     </table>
                   </div>
+                  <div class="section-title mt-0">Example request body</div>
+                <pre class="language-javascript code-toolbar"><code class=" language-javascript">{
+  id: "5ccfa725fad29149b0cbecda",
+  name: "Node 1",
+  latitude: 13.730319,
+  longitude: 100.774829,
+  active: true                    
+}</code><div class="toolbar"><div class="toolbar-item"><span>JavaScript</span></div><div class="toolbar-item"><a>Copy</a></div></div></pre>
                 </div>
             </div>
 
