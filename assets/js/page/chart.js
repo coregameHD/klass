@@ -27,7 +27,7 @@ var chart_pm25 = new Chart(chart_pm25_element, {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Date'
+                    labelString: 'Time'
                 },
                 ticks: {
                     major: {
@@ -71,7 +71,7 @@ var chart_Humid = new Chart(chart_humid_element, {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Date'
+                    labelString: 'Time'
                 },
                 ticks: {
                     major: {
@@ -115,7 +115,7 @@ var chart_temp = new Chart(chart_temp_element, {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Date'
+                    labelString: 'Time'
                 },
                 ticks: {
                     major: {
