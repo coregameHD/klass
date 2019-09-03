@@ -54,7 +54,7 @@ function loadAllData(fullScreenLoading) {
 
 function getNodeInfo() {
     // Get data from server and store in 'array_marker'
-    $.getJSON("https://api.klass.greenkmitl.com/api/nodeinfos", function (data) {
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data) {
         nodesInfo = data
 
         getAQIInfo()
@@ -62,7 +62,7 @@ function getNodeInfo() {
 }
 
 function getAQIInfo() {
-    $.getJSON("https://klassaqi.azurewebsites.net", function (data) {
+    $.getJSON("https://lapsscentral.azurewebsites.net", function (data) {
         nodeAQIData = data
 
         nodeAQIData.forEach(function (e) {
@@ -125,7 +125,7 @@ function createMarker() {
 
 function getSensorCurrentValue() {
 
-    $.getJSON("https://api.klass.greenkmitl.com/api/sensors", function (data) {
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) {
         sensors = data
 
 
@@ -179,7 +179,7 @@ function getNodeLatestHistory(hours) {
     var currentTime = new Date();
     currentTime.setHours(currentTime.getHours() - hours)
     dateString = currentTime.toISOString()
-    $.getJSON("https://api.klass.greenkmitl.com/api/sensors/history/?limit=500&from=" + dateString, function (data) {
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history/?limit=500&from=" + dateString, function (data) {
         nodeHistory = data
         console.log(nodeHistory)
         updateChart()
