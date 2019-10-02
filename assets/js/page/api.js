@@ -14,6 +14,7 @@ var currentSelectedDataDuration = 24
 var nodeAQIData = []
 
 var lastUpdateTimeInterval
+var firstTimeLoad = true
 
 // Init Map
 var array_marker = [];
@@ -55,23 +56,29 @@ function loadAllData(fullScreenLoading) {
 function getNodeInfo() {
     // Get data from server and store in 'array_marker'
     $.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data) {
-        nodesInfo = data
-
+        nodesInfo = data        
         getAQIInfo()
     });
 }
 
 function getAQIInfo() {
-    $.getJSON("https://lapsscentral.azurewebsites.net", function (data) {
+    $.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) {
         nodeAQIData = data
+        latestUpdateFromAll= nodeAQIData[0].recordedOn
+        index = 0
+        latestNode = 0
 
         nodeAQIData.forEach(function (e) {
             if (e.name == nodesInfo[selectedNode].name) {
                 document.getElementById("node-aqi").innerHTML = e.aqi
-
+            }if (e.recordedOn > latestUpdateFromAll){
+                latestNode = index
+                latestUpdateFromAll = e.recordedOn
             }
+            index +=1
         })
-        createMarker();
+        selectedNode = latestNode
+        createMarker()
     });
 }
 
