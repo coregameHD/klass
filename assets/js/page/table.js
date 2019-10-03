@@ -1,5 +1,5 @@
 // Sensors Information Table
-$.getJSON("https://api.klass.greenkmitl.com/api/sensors", function (data) {
+$.getJSON("https://lapsscentral.azurewebsites.net/api/sensors", function (data) {
   var table = '<div class="table-responsive">';
   table += '<table class="table table-striped table-md">'
   table += "<tr><th>#</th><th>Name</th><th>PM 2.5</th><th>PM 10</th><th>PM 1</th><th>Temperature</th><th>Humidity</th><th>Record On</th></tr>";
@@ -14,7 +14,7 @@ $.getJSON("https://api.klass.greenkmitl.com/api/sensors", function (data) {
 });
 
 // Sensor Information History Table
-$.getJSON("https://api.klass.greenkmitl.com/api/sensors/history?limit=10", function (data) {
+$.getJSON("https://lapsscentral.azurewebsites.net/api/sensors/history?limit=10", function (data) {
   var table = '<div class="table-responsive">';
   table += '<table class="table table-bordered table-md table-hover">'
   table += "<thead class='thead-light'><tr><th>#</th><th>Name</th><th>PM 2.5</th><th>PM 10</th><th>PM 1</th><th>Temperature</th><th>Humidity</th><th>Record On</th></tr></thead>";
@@ -29,7 +29,7 @@ $.getJSON("https://api.klass.greenkmitl.com/api/sensors/history?limit=10", funct
 });
 
 // Node Information Table
-$.getJSON("https://api.klass.greenkmitl.com/api/nodeinfos", function (data) {
+$.getJSON("https://lapsscentral.azurewebsites.net/api/nodeinfos", function (data) {
   var table = '<div class="table-responsive">';
   table += '<table class="table table-striped table-md">'
   table += "<tr><th>#</th><th>Name</th><th>Latitude</th><th>Longitude</th><th>Status</th></tr>";
