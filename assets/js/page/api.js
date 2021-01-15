@@ -7,7 +7,7 @@ var nodeHistory
 var tempGraphHistory = []
 var humidGraphHistory = []
 var pm25GraphHistory = []
-var selectedNode = 0
+var selectedNode = 1
 var currentSelectedDataDuration = 24
 
 // AQI Information
@@ -68,8 +68,19 @@ function getAQIInfo() {
         index = 0
         latestNode = 0
 
+        // nodeAQIData.forEach(function (e) {
+        //     if (e.name == nodesInfo[selectedNode].name) {
+        //         document.getElementById("node-aqi").innerHTML = e.aqi
+        //     }if (e.recordedOn > latestUpdateFromAll){
+        //         latestNode = index
+        //         latestUpdateFromAll = e.recordedOn
+        //     }
+        //     index +=1
+        // })
+
         nodeAQIData.forEach(function (e) {
             if (e.name == nodesInfo[selectedNode].name) {
+                e.aqi = calc_aqi(e.pm25Level);                     
                 document.getElementById("node-aqi").innerHTML = e.aqi
             }if (e.recordedOn > latestUpdateFromAll){
                 latestNode = index
@@ -77,9 +88,114 @@ function getAQIInfo() {
             }
             index +=1
         })
+
         selectedNode = latestNode
         createMarker()
     });
+}
+
+//Taken from air4thai website
+function calc_aqi(average, fieldName = "PM25"){
+    var STANDARD_AQI = [
+        [0,25,50,100,200],	//AQI 
+        [0,25,37,50,90],	//PM25 
+        [0,50,80,120,180],	//PM10 
+        [0,35,50,70,120],	//O3 
+        [0,4.4,6.4,9,30],	//CO 
+        [0,60,106,170,340],	//NO2 
+        [0,100,200,300,400],	//SO2 
+    ];
+
+	if(average<0) return "-";
+	if(average=="") return "-";
+	if(isNaN(average)) return "-";
+	
+	if(fieldName=="AQI")
+		return "-";
+	else if(fieldName=="PM25") 
+		fieldNum=1;
+	else if(fieldName=="PM10") 
+		fieldNum=2;
+	else if(fieldName=="O3") 
+		fieldNum=3;
+	else if(fieldName=="CO") 
+		fieldNum=4;
+	else if(fieldName=="NO2") 
+		fieldNum=5;
+	else if(fieldName=="SO2") 
+		fieldNum=6;
+	else 
+		return "-";
+	
+	var stepAdd;
+	if(fieldNum==4){
+		average = average.toFixed(1);
+		stepAdd = 0.1;
+	}
+	else{
+		average = average.toFixed(0);
+		stepAdd = 1.0;
+	}
+	console.log("fieldNum = "+fieldNum+"; average = "+average);
+	
+	
+	/*
+	if(average > STANDARD_AQI[fieldNum][4]) {
+		diff = STANDARD_AQI[fieldNum][4]-STANDARD_AQI[fieldNum][3];
+		over = (average-STANDARD_AQI[fieldNum][4])*100/diff;
+		over = parseInt(over.toFixed(0));
+		if(over == 0) over=1;
+		
+		return STANDARD_AQI[0][4]+over;
+	}
+	else {
+		for(i=3;i>=0;i--){
+			if(average == STANDARD_AQI[fieldNum][i]) {
+				return STANDARD_AQI[0][i+1];
+			}
+			else if(average > STANDARD_AQI[fieldNum][i]) {
+				aqiLv = STANDARD_AQI[0][i];
+				average -= STANDARD_AQI[fieldNum][i];
+				
+				aqiDiff = STANDARD_AQI[0][i+1]-STANDARD_AQI[0][i];
+				valueDiff = STANDARD_AQI[fieldNum][i+1]-STANDARD_AQI[fieldNum][i];
+				
+				aqiLv += (average * aqiDiff) / valueDiff;
+				//console.log(""+i+": "+average+"*"+aqiDiff+"/"+valueDiff);
+				aqiLv = parseInt(aqiLv.toFixed(0));
+				if(aqiLv == STANDARD_AQI[0][i])
+					aqiLv ++;
+				return aqiLv;
+			}
+		}
+		return 0;
+	}
+	*/
+	
+	for(i=1;i<=4;i++){
+		if(average <= STANDARD_AQI[fieldNum][i]) {
+			average -= STANDARD_AQI[fieldNum][i-1]+(i==1?0:stepAdd);
+			aqiDiff = STANDARD_AQI[0][i]-(STANDARD_AQI[0][i-1]+(i==1?0:1));
+			valueDiff = STANDARD_AQI[fieldNum][i]-(STANDARD_AQI[fieldNum][i-1]+(i==1?0:stepAdd));
+			
+			aqiLv = STANDARD_AQI[0][i-1]+(i==1?0:1);
+			aqiLv += (average * aqiDiff) / valueDiff;
+			console.log(""+i+": "+average+"*"+aqiDiff+"/"+valueDiff);
+			return parseInt(aqiLv.toFixed(0));
+		}
+	}
+	//console.log("average = "+average);
+	average -= STANDARD_AQI[fieldNum][4];
+
+	if(fieldNum==1)
+		return average+200;
+	else if(fieldNum==2){
+		average=201+((average-1)*0.5);
+		return parseInt(average.toFixed(0));
+	}
+	else if(fieldNum==3)
+		return average+200;
+	return 201;
 }
 
 function createMarker() {
@@ -164,7 +280,7 @@ function getSensorCurrentValue() {
                 updateTimeString = moment().diff(updateTime, 'hour') + "hour ago";
             }
 
-            if (secondFromLastUpdate < 310) {
+            if (secondFromLastUpdate < 15*60) {
                 document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-success\" > <i class=\"fas fa-circle\"></i> " + "Online " + updateTimeString
             } else {
                 document.getElementById("selected-node-name").innerHTML = nodesInfo[selectedNode].name + "   <span class=\"text-small font-weight-600 text-danger\" > <i class=\"fas fa-circle\"></i> " + "No response " + updateTimeString
