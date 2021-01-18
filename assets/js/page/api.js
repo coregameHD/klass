@@ -7,7 +7,7 @@ var nodeHistory
 var tempGraphHistory = []
 var humidGraphHistory = []
 var pm25GraphHistory = []
-var selectedNode = 1
+var selectedNode = 0
 var currentSelectedDataDuration = 24
 
 // AQI Information
